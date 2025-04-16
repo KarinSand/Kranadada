@@ -36,3 +36,34 @@ CREATE TABLE IF NOT EXISTS KORT (
 );
 """)
 
+
+# Lägger till huvudkategorier – Teknik, Politik osv.
+kategorier = [('Teknik',), ('Politik',), ('Vetenskap',), ('Samhälle',)]
+cursor.executemany("INSERT INTO KATEGORI (NAMN) VALUES (?)", kategorier)
+
+# Hämtar KATEGORI_ID för varje kategori baserat på namn
+cursor.execute("SELECT KATEGORI_ID FROM KATEGORI WHERE NAMN = 'Teknik'")
+teknik_ID = cursor.fetchone()[0]
+
+cursor.execute("SELECT KATEGORI_ID FROM KATEGORI WHERE NAMN = 'Politik'")
+politik_ID = cursor.fetchone()[0]
+
+cursor.execute("SELECT KATEGORI_ID FROM KATEGORI WHERE NAMN = 'Vetenskap'")
+vetenskap_ID = cursor.fetchone()[0]
+
+cursor.execute("SELECT KATEGORI_ID FROM KATEGORI WHERE NAMN = 'Samhälle'")
+samhälle_ID = cursor.fetchone()[0]
+
+# Lägger till subkategorier och koppla dem huvudkategori
+subkategorier = [
+    ('Rymden', vetenskap_ID),
+    ('Internet', teknik_ID),
+    ('Sociala medier', teknik_ID),
+    ('Mobilteknologi', teknik_ID),
+    ('Pandemier', samhälle_ID),
+    ('Klimat', samhälle_ID),
+    ('AI', teknik_ID),
+    ('Val', politik_ID),
+    ('Historia', politik_ID)
+]
+cursor.executemany("INSERT INTO SUBKATEGORI (NAMN, KATEGORI_ID) VALUES (?, ?)", subkategorier)
