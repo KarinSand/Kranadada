@@ -4,7 +4,7 @@ import sqlite3  # SQLite för databasen
 conn = sqlite3.connect('min_databas.db')
 cursor = conn.cursor()
 
-# Skapa tabellen för huvudkategorier
+# Skapa tabell för huvudkategorier
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS KATEGORI (
     KATEGORI_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,13 +12,27 @@ CREATE TABLE IF NOT EXISTS KATEGORI (
 );
 """)
 
-# Skapa tabellen för underkategorier
+# Skapa tabell för underkategorier
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS SUBKATEGORI (
     SUBKATEGORI_ID INTEGER PRIMARY KEY AUTOINCREMENT,
     NAMN VARCHAR(50) NOT NULL,
     KATEGORI_ID INTEGER,
     FOREIGN KEY (KATEGORI_ID) REFERENCES KATEGORI(KATEGORI_ID)
+);
+""")
+# Skapa tabell för spelkorten
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS KORT (
+    KORT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    NAMN VARCHAR(100) NOT NULL,
+    ÅRTAL INTEGER,
+    BESKRIVNING TEXT,
+    HUR VARCHAR(200),
+    KATEGORI_ID INTEGER,
+    SUBKATEGORI_ID INTEGER,
+    FOREIGN KEY (KATEGORI_ID) REFERENCES KATEGORI(KATEGORI_ID),
+    FOREIGN KEY (SUBKATEGORI_ID) REFERENCES SUBKATEGORI(SUBKATEGORI_ID)
 );
 """)
 
