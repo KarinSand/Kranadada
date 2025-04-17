@@ -67,3 +67,27 @@ subkategorier = [
     ('Historia', politik_ID)
 ]
 cursor.executemany("INSERT INTO SUBKATEGORI (NAMN, KATEGORI_ID) VALUES (?, ?)", subkategorier)
+
+
+# Lägger till kort med titel, årtal, beskrivning samt koppling till kategori/subkategori
+kort = [
+    ("Första månen", 1969, "Människan satte sin fot på månen.", 3, 1),
+    ("Berlinmurens fall", 1989, "Berlinmuren föll.", 2, 9),
+    ("Internet föds", 1983, "Det moderna internet föds.", 1, 2),
+    ("Facebook lanseras", 2004, "Sociala medier revolutioneras.", 1, 3),
+    ("Smartphone revolutionen", 2007, "Den första iPhone lanseras.", 1, 4),
+    ("COVID-19-pandemin", 2019, "Pandemin påverkar världen.", 4, 5),
+    ("Klimatavtal i Paris", 2015, "Världens länder enas om klimatavtal.", 4, 6),
+    ("AI blir mainstream", 2020, "Artificiell intelligens blir allmänt tillgänglig.", 1, 7),
+    ("Mars rover Perseverance", 2021, "Rover landar på Mars.", 3, 1 ),
+    ("Svenska folket röstar", 2022, "Svenska folket röstar i valet.", 2, 8) 
+]
+ 
+cursor.executemany("""
+INSERT INTO KORT (NAMN, ÅRTAL, BESKRIVNING, KATEGORI_ID, SUBKATEGORI_ID)
+VALUES (?, ?, ?, ?, ?)
+""", kort)   
+
+# Sparar och stänger anslutning
+conn.commit()
+conn.close()
