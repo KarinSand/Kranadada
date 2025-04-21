@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Historiskt Tidslinjespel - Prototyp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h2>Krånådådå</h2>
+  </header>
+
+  <main>
+    <h1>Placera händelser i rätt ordning</h1>
+
+    <div class="info-container">
+      <div class="category-select">
+        <label for="category">Välj kategori:</label>
+        <select id="category">
+          <option value="world-history">Världshistoria</option>
+          <option value="swedish-history">Svensk historia</option>
+          <option value="tech">Tekniska framsteg</option>
+        </select>
+      </div>
+
+      <div class="difficulty-select">
+        <label for="difficulty">Välj svårighetsgrad:</label>
+        <select id="difficulty">
+          <option value="easy">Lätt</option>
+          <option value="medium">Medel</option>
+          <option value="hard">Svår</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Kortsamling -->
+    <div id="deck-container">
+      <h3>Tillgängliga kort</h3>
+      <div id="deck">
+        <div class="card" draggable="true">Slaget vid Hastings (1066)</div>
+        <div class="card" draggable="true">Månlandningen (1969)</div>
+        <div class="card" draggable="true">Första mobiltelefonen (1973)</div>
+        <div class="card" draggable="true">Berlinmurens fall (1989)</div>
+      </div>
+    </div>
+
+    <!-- Tidslinje -->
+    <div id="timeline-container">
+      <h3>Dra kort hit för att bygga tidslinje</h3>
+      <div id="timeline">
+        <!-- Tom tidslinje – användaren drar kort hit -->
+        <div class="placeholder">Släpp kort här</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Grupp 07 Krånådådå</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

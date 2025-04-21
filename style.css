@@ -1,0 +1,193 @@
+/* Mörk och modern design */
+/* Importera gärna ett webbsnitt om du vill (ex. Inter) */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap'); */
+
+:root {
+  --bg-color: #1E1E1E;        /* Huvudsaklig bakgrundsfärg */
+  --text-color: #EDEDED;      /* Primär textfärg */
+  --accent-color: #FF6F61;    /* Accentfärg (röd/orange ton) */
+  --secondary-accent: #5E81AC;/* Sekundär accent (blåton) */
+  --card-bg: #2C2C2C;         /* Bakgrund för kort */
+  --card-border: #444;        /* Kantfärg för kort */
+  --header-gradient-start: #2D2D2D;
+  --header-gradient-end: #3A3A3A;
+  --placeholder-border: #666;
+}
+
+/* Grundlayout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Byt gärna till en importerad font */
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Topprad med en modern mörk-gradient */
+header {
+  background: linear-gradient(
+    45deg,
+    var(--header-gradient-start),
+    var(--header-gradient-end)
+  );
+  color: var(--text-color);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+header h2 {
+  font-size: 1.5rem;
+}
+
+/* Sidans innehåll */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Rubrik */
+h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 400;
+}
+
+/* Container för dropdowns */
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.category-select,
+.difficulty-select {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #555;
+  background-color: #2A2A2A;
+  color: var(--text-color);
+  outline: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+select:hover {
+  background-color: #333;
+}
+
+/* Kort & Tidslinje-sektioner */
+#deck-container,
+#timeline-container {
+  margin-bottom: 2rem;
+}
+
+#deck-container h3,
+#timeline-container h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+/* Kortsamling */
+#deck {
+  background: rgba(60, 60, 60, 0.8);
+  border: 1px solid #333;
+  padding: 1rem;
+  min-height: 120px;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+}
+
+/* Korten */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1rem;
+  text-align: center;
+  min-width: 140px;
+  cursor: grab;
+  user-select: none;
+  border-radius: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.card.dragging {
+  opacity: 0.5;
+  box-shadow: 0 2px 8px rgba(255,255,255,0.4);
+}
+
+/* Tidslinje */
+#timeline-container h3 {
+  margin-top: 0.5rem;
+}
+
+#timeline {
+  background: rgba(80, 80, 80, 0.6);
+  border: 2px dashed #555;
+  display: flex;
+  gap: 1rem;
+  min-height: 100px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+}
+
+.placeholder {
+  border: 2px dashed var(--placeholder-border);
+  width: 140px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: #999;
+  font-style: italic;
+  border-radius: 4px;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(
+    45deg,
+    var(--header-gradient-start),
+    var(--header-gradient-end)
+  );
+  color: var(--text-color);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.4);
+}
+
+  
