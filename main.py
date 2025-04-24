@@ -1,17 +1,12 @@
 from flask import Flask, jsonify, request
 import random
 
-#author: Adrian Rybarczyk med hjälp av AI för jag har aldrig använt flask förut
-
-app = Flask(__name__)
-
 class Card:
-    """Klassen fungerar så att varje kort har ett namn, årtal och en liten beskrivning."""
-    
-    def __init__(self, name, year, description):
-        self.name = name
-        self.year = year
-        self.description = description
+  """Klassen fungerar så att varje kort har ett namn, årtal och en liten beskrivning."""
+   def __init__(self, name, year, description):
+      self.name = name
+      self.year = year
+      self.description = description
 
     def to_dict(self):
         """Konverterar kortet till JSON format."""
