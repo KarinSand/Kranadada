@@ -34,7 +34,7 @@ python app.py
 Öppna sedan webbläsaren och gå till:
 http://127.0.0.1:5000/
 
-# Mappstrukturen ska se ut såhär
+## Mappstrukturen ska se ut såhär
 /
 ├── templates/
 │   ├── index.html
