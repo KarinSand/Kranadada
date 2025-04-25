@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spel pågår – Krånådådå</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="game-main">
+
+  <header>
+    <span class="logo">Krånådådå</span>
+  </header>
+
+  <div class="main-content">
+
+    <div class="game-layout">
+      <!-- Kortlek till vänster -->
+      <div class="card-deck-box">
+        <h3>Kortlek</h3>
+        <p>🎴 Kvarvarande kort i leken</p>
+        <!-- Här kan du lägga till antal kvar eller en knapp för att dra kort -->
+      </div>
+
+      <!-- Kort att placera i mitten -->
+      <div class="current-card-box">
+        <h3>Aktuellt kort</h3>
+        <p>Här visas kortet som ska placeras</p>
+      </div>
+    </div>
+
+    <!-- Tidslinjen nedanför -->
+    <div class="timeline">
+      <h3>Tidslinje</h3>
+      {% for card in timeline %}
+        <div class="timeline-card">
+          <strong>{{ card.name }}</strong> ({{ card.year }})
+        </div>
+      {% endfor %}
+    </div>
+
+    <p>Poäng: {{ score }}</p>
+
+  </div>
+
+</body>
+</html>
