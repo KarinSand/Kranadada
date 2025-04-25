@@ -1,65 +1,49 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <title>Historiskt Tidslinjespel - Prototyp</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krånådådå</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
   <header>
-    <h2>Krånådådå</h2>
+    <span class="menu-toggle" onclick="openSidebar()">☰</span>
+    <span class="logo">Krånådådå</span>
   </header>
 
-  <main>
-    <h1>Placera händelser i rätt ordning</h1>
+  <div id="sidebar" class="sidebar">
+    <a href="http://127.0.0.1:5000/#">🏠 Startsida</a>
+    <a href="http://127.0.0.1:5000/game">🎮 Spela</a>
+    <a href="http://127.0.0.1:5000/highscore">🏆 Highscores</a>
+    <a href="http://127.0.0.1:5000/contact">📬 Kontakt</a>
+    <a href="#" onclick="closeSidebar()">❌ Stäng</a>
+  </div>
+  
 
-    <div class="info-container">
-      <div class="category-select">
-        <label for="category">Välj kategori:</label>
-        <select id="category">
-          <option value="world-history">Världshistoria</option>
-          <option value="swedish-history">Svensk historia</option>
-          <option value="tech">Tekniska framsteg</option>
-        </select>
-      </div>
-
-      <div class="difficulty-select">
-        <label for="difficulty">Välj svårighetsgrad:</label>
-        <select id="difficulty">
-          <option value="easy">Lätt</option>
-          <option value="medium">Medel</option>
-          <option value="hard">Svår</option>
-        </select>
-      </div>
+  <div class="main-content">
+    <div class="description">
+      <p><strong>Vad är Krånådådå?</strong></p>
+      <p>
+        Krånådådå är ett nostalgiskt och klurigt spel där du utmanar dina reflexer och samlar poäng. Logga in med ditt användarnamn och tävla om att nå högst upp på topplistan!
+      </p>
     </div>
 
-    <!-- Kortsamling -->
-    <div id="deck-container">
-      <h3>Tillgängliga kort</h3>
-      <div id="deck">
-        <div class="card" draggable="true">Slaget vid Hastings (1066)</div>
-        <div class="card" draggable="true">Månlandningen (1969)</div>
-        <div class="card" draggable="true">Första mobiltelefonen (1973)</div>
-        <div class="card" draggable="true">Berlinmurens fall (1989)</div>
-      </div>
+    <div class="login-box">
+      <input type="text" placeholder="Användarnamn" id="username">
+      <br>
+      <button onclick="login()">Logga in</button>
     </div>
+  </div>
 
-    <!-- Tidslinje -->
-    <div id="timeline-container">
-      <h3>Dra kort hit för att bygga tidslinje</h3>
-      <div id="timeline">
-        <!-- Tom tidslinje – användaren drar kort hit -->
-        <div class="placeholder">Släpp kort här</div>
-      </div>
-    </div>
-
-  </main>
-
-  <footer>
-    <p>Grupp 07 Krånådådå</p>
-  </footer>
-
-  <script src="script.js"></script>
+  <div class="login-box">
+    <input type="text" placeholder="Användarnamn" id="username">
+    <br>
+    <button onclick="login()">Logga in</button>
+    <button id="logoutBtn" onclick="logout()" style="display: none;">Logga ut</button>
+  </div>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
