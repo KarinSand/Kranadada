@@ -9,14 +9,14 @@ Behöver ej ladda ner något, går att köra koden direkt i terminalen
 
 Det här är ett webbaserat kortspel byggt med **Flask** där spelaren ska placera historiska händelser i rätt ordning på en tidslinje. Projektet är inspirerat av spelet "Timeline".
 
-## 🃏 Funktionalitet
+## Funktionalitet
 
 - Flask används för att skapa en webbserver med flera routes.
 - Användaren kan spela ett spel där kort med historiska händelser placeras i kronologisk ordning.
 - Korten genereras som Python-objekt och innehåller namn, årtal och en kort beskrivning.
 - Webbsidor som `index.html`, `game.html`, `game_main.html`, etc. används för olika delar av spelet.
 
-## 🚀 Kom igång
+## Kom igång
 
 ### Förutsättningar
 
