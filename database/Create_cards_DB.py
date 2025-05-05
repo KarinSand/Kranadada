@@ -1,8 +1,9 @@
 import sqlite3  # SQLite for the database
 
-# Create and connect to the database
-conn = sqlite3.connect('cards_only.db')
-cursor = conn.cursor()
+# Skapa och koppla databas
+def init_db():
+    conn = sqlite3.connect('cards_only.db')
+    cursor = conn.cursor()
 
 # Skapa tabell för kort
 cursor.execute("""
@@ -15,7 +16,10 @@ CREATE TABLE IF NOT EXISTS CARD (
 """)
 
 
-# Lägger till kort med titel, årtal, beskrivning samt koppling till kategori/subkategori
+    # Kolla om kort redan har lagts till
+ cursor.execute("SELECT COUNT(*) FROM CARD")
+ if cursor.fetchone()[0] == 0:
+# Lägger till kort 
 cards = [
     ("First Moon Landing", 1969, "Humans set foot on the moon."),
     ("Fall of the Berlin Wall", 1989, "The Berlin Wall fell."),
@@ -38,3 +42,8 @@ VALUES (?, ?, ?)
 # Sparar och stänger anslutning
 conn.commit()
 conn.close()
+
+
+# Kör bara detta om man kör filen direkt
+if __name__ == "__main__":
+    init_db()
