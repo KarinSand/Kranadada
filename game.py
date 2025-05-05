@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
+import sqlite3
 import random
-
+from database.init_db import init_db
 app = Flask(__name__)
 
 @app.route('/')
