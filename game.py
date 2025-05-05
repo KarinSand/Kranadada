@@ -1,53 +1,9 @@
 from flask import Flask, render_template, jsonify, request
-import sqlite3
+import sqlite3 # to interact with the cards database
 import random
-from database.init_db import init_db
+from database.init_db import init_db # to initialize the database structure and seed card data
 app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
-
-@app.route('/highscore')
-def highscore():
-    return render_template('highscore.html')
-
-@app.route('/game')
-def game():
-    return render_template('game.html')
-
-@app.route('/game_main')
-def game_main():
-    return render_template('game_main.html')
-
-@app.route('/game_sport')
-def game_sport():
-    return render_template('game_sport.html')
-
-@app.route('/game_war_politic')
-def game_war_politic():
-    return render_template('game_war_politic.html')
-
-@app.route('/game_fun')
-def game_fun():
-    return render_template('game_fun.html')
-
-@app.route('/game_inventings')
-def game_inventings():
-    return render_template('game_inventings.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-from flask import Flask, render_template, jsonify, request
-import random
-
-app = Flask(__name__)
+init_db()  # Initiera databasen direkt när appen startar
 
 class Card:
     """Klassen fungerar så att varje kort har ett namn, årtal och en liten beskrivning."""
@@ -66,8 +22,15 @@ class Card:
             "description": self.description
         }
 
-def create_deck():
-    """Skapar kortlek korten genererade via AI."""
+# Hämta kort från databasen
+def create_deck_from_db():
+    conn = sqlite3.connect('cards_only.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT NAME, YEAR, DESCRIPTION FROM CARD")
+    rows = cursor.fetchall()
+    conn.close()
+    return [Card(name, year, desc) for name, year, desc in rows]
+
 
     return [
         Card("Första månen", 1969, "Människan satte sin fot på månen."),
@@ -122,7 +85,42 @@ def start_game():
 
     # Om GET-anrop (t.ex. direkt från URL), visa bara formulär eller startsida
     return render_template('game_main.html')
+# ROUTES
+@app.route('/')
+def home():
+    return render_template('index.html')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/highscore')
+def highscore():
+    return render_template('highscore.html')
+
+@app.route('/game')
+def game():
+    return render_template('game.html')
+
+@app.route('/game_main')
+def game_main():
+    return render_template('game_main.html')
+
+@app.route('/game_sport')
+def game_sport():
+    return render_template('game_sport.html')
+
+@app.route('/game_war_politic')
+def game_war_politic():
+    return render_template('game_war_politic.html')
+
+@app.route('/game_fun')
+def game_fun():
+    return render_template('game_fun.html')
+
+@app.route('/game_inventings')
+def game_inventings():
+    return render_template('game_inventings.html')
 
 @app.route('/draw_card', methods=['POST'])
 def draw_card_route():
