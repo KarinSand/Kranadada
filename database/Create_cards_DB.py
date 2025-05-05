@@ -1,3 +1,4 @@
+
 import sqlite3  # SQLite for the database
 
 # Skapa och koppla databas
