@@ -83,41 +83,33 @@ def start_game():
 
         return render_template('play.html', first_card=first_card.to_dict(), timeline=[first_card.to_dict()], score=score)
 
-    # Om GET-anrop (t.ex. direkt från URL), visa bara formulär eller startsida
+    # Om GET-anrop  visa bara formulär eller startsida
     return render_template('game_main.html')
 # ROUTES
 @app.route('/')
 def home():
     return render_template('index.html')
-
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-
 @app.route('/highscore')
 def highscore():
     return render_template('highscore.html')
-
 @app.route('/game')
 def game():
     return render_template('game.html')
-
 @app.route('/game_main')
 def game_main():
     return render_template('game_main.html')
-
 @app.route('/game_sport')
 def game_sport():
     return render_template('game_sport.html')
-
 @app.route('/game_war_politic')
 def game_war_politic():
     return render_template('game_war_politic.html')
-
 @app.route('/game_fun')
 def game_fun():
     return render_template('game_fun.html')
-
 @app.route('/game_inventings')
 def game_inventings():
     return render_template('game_inventings.html')
