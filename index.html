@@ -1,49 +1,39 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Krånådådå</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-
   <header>
-    <span class="menu-toggle" onclick="openSidebar()">☰</span>
-    <span class="logo">Krånådådå</span>
+    <h1>Krånådådå</h1>
   </header>
 
-  <div id="sidebar" class="sidebar">
-    <a href="http://127.0.0.1:5000/#">🏠 Startsida</a>
-    <a href="http://127.0.0.1:5000/game">🎮 Spela</a>
-    <a href="http://127.0.0.1:5000/highscore">🏆 Highscores</a>
-    <a href="http://127.0.0.1:5000/contact">📬 Kontakt</a>
-    <a href="#" onclick="closeSidebar()">❌ Stäng</a>
-  </div>
-  
+  <main>
+    <section id="start-screen">
+      <button id="start-btn" class="btn primary">Starta spel</button>
+    </section>
 
-  <div class="main-content">
-    <div class="description">
-      <p><strong>Vad är Krånådådå?</strong></p>
-      <p>
-        Krånådådå är ett nostalgiskt och klurigt spel där du utmanar dina reflexer och samlar poäng. Logga in med ditt användarnamn och tävla om att nå högst upp på topplistan!
-      </p>
-    </div>
+    <section id="game-screen" class="hidden">
+      <div id="score-board">
+        Poäng: <span id="score">0</span>
+      </div>
 
-    <div class="login-box">
-      <input type="text" placeholder="Användarnamn" id="username">
-      <br>
-      <button onclick="login()">Logga in</button>
-    </div>
-  </div>
+      <div id="timeline" class="timeline">
+        <!-- dropzoner och placerade kort -->
+      </div>
 
-  <div class="login-box">
-    <input type="text" placeholder="Användarnamn" id="username">
-    <br>
-    <button onclick="login()">Logga in</button>
-    <button id="logoutBtn" onclick="logout()" style="display: none;">Logga ut</button>
-  </div>
-  
+      <!-- Kort som dras-->
+      <div id="deck">
+        <div id="current-card" class="card" draggable="true"></div>
+      </div>  
+    </section>
+  </main>
+
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
