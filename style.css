@@ -1,515 +1,168 @@
 
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap'); */
+   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --bg-color: #1E1E1E;        /* Huvudsaklig bakgrundsfärg */
-  --text-color: #EDEDED;      /* Primär textfärg */
-  --accent-color: #FF6F61;    /* Accentfärg (röd/orange ton) */
-  --secondary-accent: #5E81AC;/* Sekundär accent (blåton) */
-  --card-bg: #2C2C2C;         /* Bakgrund för kort */
-  --card-border: #444;        /* Kantfärg för kort */
-  --header-gradient-start: #2D2D2D;
-  --header-gradient-end: #3A3A3A;
-  --placeholder-border: #666;
-}
+   :root {
+     --accent:      #0066d4;
+     --accent-dark: #00478d;
+     --accent-lite: #d9e8ff;
+     --bg:          #f5f7fe;
+     --card-edge:   #e0e3f1;
+     --good:        #2ca650;
+     --bad:         #e63946;
+     --good-bg:     #e9f7ee;
+     --bad-bg:      #fdecef;
+   }
+   
+   html, body {
+     height: 100%;
+     font-family: "Nunito", system-ui, sans-serif;
+     background: var(--bg);
+     color: #222;
+   }
+   
+   body { display: flex; flex-direction: column; }
+   
+   /* header */
+   header {
+     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+     color: #fff;
+     text-align: center;
+     padding: 1.6rem 1rem 1.3rem;
+     box-shadow: 0 3px 12px rgba(0,0,0,.25);
+   }
+   
+   header h1 { font-weight: 700; letter-spacing: 1px; }
+   
+   main {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 2rem 1rem 1.5rem;
+   }
+   
+   .btn {
+     font-size: 1.15rem;
+     padding: 0.75rem 2.2rem;
+     border-radius: 10px;
+     border: none;
+     cursor: pointer;
+     transition: transform .18s ease, box-shadow .18s ease;
+     font-weight: 700;
+   }
+   .btn.primary {
+     background: var(--accent);
+     color: #fff;
+     box-shadow: 0 4px 10px rgba(0,102,212,.35);
+   }
+   .btn.primary:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 8px 18px rgba(0,102,212,.4);
+   }
+   
+   #score-board {
+     margin-top: 1rem;
+     font-size: 1.05rem;
+     background: var(--accent-dark);
+     color: #fff;
+     padding: 0.45rem 1.1rem;
+     border-radius: 999px;
+     box-shadow: 0 3px 8px rgba(0,0,0,.18);
+     display: flex;
+     gap: .35rem;
+     align-items: center;
+   }
+   #score-board span {
+     font-weight: 800;
+     font-size: 1.3rem;
+   }
+   
+   #timeline {
+     width: 100%;
+     max-width: 1000px;
+     margin: 2.2rem 0 1rem;
+     display: flex;
+     gap: 1rem;
+     overflow-x: auto;
+     padding: 2.2rem 0;         /* plats ovan o under linjen */
+     position: relative;
+   }
+   #timeline::before {          /* horisontell linje */
+     content: "";
+     position: absolute;
+     left: 0; right: 0;
+     top: 50%;
+     height: 3px;
+     background: #cdd4ec;
+     pointer-events: none;
+   }
+   
+   .card {
+     min-width: 200px;
+     padding: 1rem .85rem;
+     background: #fff;
+     border: 2px solid var(--card-edge);
+     border-radius: 12px;
+     text-align: center;
+     font-weight: 700;
+     cursor: grab;
+     user-select: none;
+     box-shadow: 0 6px 12px rgba(0,0,0,.07);
+     transition: transform .18s ease, box-shadow .18s ease;
+     position: relative;
+     z-index: 1;
+   }
+   .card:hover   { transform: translateY(-4px) rotate(-0.4deg); }
+   .card:active  { cursor: grabbing; transform: scale(.96); }
+   
+   .card.correct   { border-color: var(--good); background: var(--good-bg); }
+   .card.incorrect { border-color: var(--bad);  background: var(--bad-bg); }
+   
 
-/* Grundlayout */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif; /* Byt gärna till en importerad font */
-}
+   .dropzone {
+     position: relative;
+     flex: 0 0 auto;
+     width: 10px;               
+     height: 120px;
+     background: transparent;
+     border: none;
+     cursor: pointer;
+     transition: width .15s ease;
+   }
+   
+   /* vertikal stav (pseudo‑element) */
+   .dropzone::before {
+     content: "";
+     position: absolute;
+     left: 50%;
+     top: 0;
+     transform: translateX(-50%);
+     width: 4px;
+     height: 100%;
+     background: var(--accent-lite);
+     border-radius: 2px;
+     transition: background .15s ease, box-shadow .15s ease;
+   }
+   
+   .dropzone.highlight {
+     width: 60px;
+   }
+   .dropzone.highlight::before {
+     width: 6px;
+     background: var(--accent);
+     box-shadow: 0 0 10px var(--accent);
+   }
+   .dropzone.highlight::after {
+     content: "➕";
+     position: absolute;
+     top: 50%; left: 50%;
+     transform: translate(-50%,-50%);
+     font-size: 1.6rem;
+     color: var(--accent);
+   }
+   
 
-body {
-  background: var(--bg-color);
-  color: var(--text-color);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Topprad med en modern mörk-gradient */
-header {
-  background: linear-gradient(
-    45deg,
-    var(--header-gradient-start),
-    var(--header-gradient-end)
-  );
-  color: var(--text-color);
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-}
-
-header h2 {
-  font-size: 1.5rem;
-}
-
-/* Sidans innehåll */
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Rubrik */
-h1 {
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 400;
-}
-
-/* Container för dropdowns */
-.info-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.category-select,
-.difficulty-select {
-  display: flex;
-  flex-direction: column;
-  width: 48%;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #555;
-  background-color: #2A2A2A;
-  color: var(--text-color);
-  outline: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-select:hover {
-  background-color: #333;
-}
-
-/* Kort & Tidslinje-sektioner */
-#deck-container,
-#timeline-container {
-  margin-bottom: 2rem;
-}
-
-#deck-container h3,
-#timeline-container h3 {
-  margin-bottom: 0.5rem;
-  font-weight: 400;
-}
-
-/* Kortsamling */
-#deck {
-  background: rgba(60, 60, 60, 0.8);
-  border: 1px solid #333;
-  padding: 1rem;
-  min-height: 120px;
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
-}
-
-/* Korten */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  padding: 1rem;
-  text-align: center;
-  min-width: 140px;
-  cursor: grab;
-  user-select: none;
-  border-radius: 4px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.card.dragging {
-  opacity: 0.5;
-  box-shadow: 0 2px 8px rgba(255,255,255,0.4);
-}
-
-/* Tidslinje */
-#timeline-container h3 {
-  margin-top: 0.5rem;
-}
-
-#timeline {
-  background: rgba(80, 80, 80, 0.6);
-  border: 2px dashed #555;
-  display: flex;
-  gap: 1rem;
-  min-height: 100px;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
-}
-
-.placeholder {
-  border: 2px dashed var(--placeholder-border);
-  width: 140px;
-  height: 100px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  color: #999;
-  font-style: italic;
-  border-radius: 4px;
-}
-
-/* Footer */
-footer {
-  background: linear-gradient(
-    45deg,
-    var(--header-gradient-start),
-    var(--header-gradient-end)
-  );
-  color: var(--text-color);
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.4);
-}
---------------------------------
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f4f4;
-  color: #333;
-}
-  
-header {
-  background-color: #222;
-  color: #fff;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-  
-.menu-toggle {
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 1rem;
-}
-  
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-  
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #333;
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
-  z-index: 999;
-}
-  
-.sidebar a {
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #fff;
-  display: block;
-  transition: 0.2s;
-}
-  
-.sidebar a:hover {
-  background-color: #444;
-}
-  
-.main-content {
-  padding: 2rem;
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-}
-  
-.description {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-  
-.login-box {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-  
-.login-box input {
-  padding: 0.8rem;
-  width: 80%;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-  
-.login-box button {
-  padding: 0.8rem 2rem;
-  background-color: #222;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-  
-.login-box button:hover {
-  background-color: #444;
-}
-  
-@media (max-width: 600px) {
-  .login-box input {
-    width: 100%;
-  }
-}
-
-.contact-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-  
-.contact-card {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.08);
-  text-align: left;
-  max-width: 400px;
-  margin: 0 auto;
-  font-size: 1rem;
-}
-
-#logoutBtn {
-  margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
-  background-color: #f44336;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-}
-  
-#logoutBtn:hover {
-  background-color: #d32f2f;
-}
-  
-  /* Highscore table */
-.highscore-table {
-  width: 100%;
-  margin-top: 2rem;
-  border-collapse: collapse;
-}
-
-.highscore-table th, .highscore-table td {
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-
-.highscore-table th {
-  background-color: #222;
-  color: white;
-}
-
-.highscore-table td {
-  background-color: #fff;
-}
-
-.highscore-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/* Gemensamt fÃ¶r alla speltyper */
-.card-deck {
-  color: white;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.timeline {
-  margin-top: 3rem;
-  height: 200px;
-  border: 2px dashed;
-  border-radius: 8px;
-}
-
-/* Vanligt spel */
-body.game-main {
-  background-color: #f4f4f4;
-}
-
-body.game-main .card-deck {
-  background-color: #222;
-}
-
-body.game-main .timeline {
-  background-color: #ddd;
-  border-color: #999;
-}
-
-/* Sport */
-body.game-sport {
-  background-color: #e0f7e9;
-}
-
-body.game-sport .card-deck {
-  background-color: #4caf50;
-}
-
-body.game-sport .timeline {
-  background-color: #a5d6a7;
-  border-color: #388e3c;
-}
-
-/* Krig & Politik */
-body.game-krigpolitik {
-  background-color: #f3e5f5;
-}
-
-body.game-krigpolitik .card-deck {
-  background-color: #8e24aa;
-}
-
-body.game-krigpolitik .timeline {
-  background-color: #ce93d8;
-  border-color: #6a1b9a;
-}
-
-/* NÃ¶je */
-body.game-noje {
-  background-color: #ffebee;
-}
-
-body.game-noje .card-deck {
-  background-color: #e53935;
-}
-
-body.game-noje .timeline {
-  background-color: #ef9a9a;
-  border-color: #b71c1c;
-}
-
-/* Uppfinningar */
-body.game-uppfinningar {
-  background-color: #e3f2fd;
-}
-
-body.game-uppfinningar .card-deck {
-  background-color: #2196f3;
-}
-
-body.game-uppfinningar .timeline {
-  background-color: #90caf9;
-  border-color: #1565c0;
-}
-
-/* === Ny layout fÃ¶r vanligt spel === */
-.game-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.card-deck-box,
-.current-card-box,
-.timeline-box {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 900px;
-  text-align: center;
-}
-
-.card-deck-box {
-  align-self: flex-start;
-}
-
-.current-card-box {
-  margin: auto;
-  background-color: #fefefe;
-  border: 2px solid #ccc;
-}
-
-.timeline-box {
-  margin-top: 1rem;
-}
-
-.timeline {
-  height: 100px;
-  background-color: #ddd;
-  border: 2px dashed #999;
-  border-radius: 8px;
-  overflow-x: auto;
-  padding: 1rem;
-  white-space: nowrap;
-}
-
-.game-layout {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  gap: 2rem;
-}
-
-.card-deck-box,
-.current-card-box {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  width: 45%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.timeline {
-  padding: 1rem;
-  border: 2px dashed #999;
-  border-radius: 8px;
-  background-color: #ddd;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.timeline-card {
-  background: white;
-  padding: 0.8rem 1.2rem;
-  border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-  
+   @media (max-width: 600px) {
+     .card { min-width: 160px; }
+   }
+   
