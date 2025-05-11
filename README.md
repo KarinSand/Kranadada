@@ -41,7 +41,7 @@ Spelet ska nu laddas i webbläsaren.
 kranadada/
 ├── app.py
 ├── init_db.py
-├── cards_only.db         (skapas automatiskt)
+├── cards_only.db         (skapas automatiskt, gitignore)
 ├── templates/
 │   └── index.html
 └── static/
