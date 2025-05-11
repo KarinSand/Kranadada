@@ -34,21 +34,12 @@ python app.py
 Öppna sedan webbläsaren och gå till:
 http://127.0.0.1:5000/
 
-## Mappstrukturen ska se ut såhär
-/
+kranadada/
+├── app.py
+├── init_db.py
+├── cards_only.db         # skapas automatiskt
 ├── templates/
-│   ├── index.html
-│   ├── contact.html
-│   ├── highscore.html
-│   ├── game.html
-│   ├── game_main.html
-│   ├── game_sport.html
-│   ├── game_fun.html
-│   ├── game_war_politic.html
-│   ├── game_inventings.html
-│   └── play.html
-├── static/
-│   ├── script.js
-│   ├── style.css
-├── game.py
-└── README.md
+│   └── index.html
+└── static/
+    ├── style.css
+    └── script.js 
