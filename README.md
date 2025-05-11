@@ -44,6 +44,8 @@ kranadada/
 ├── cards_only.db         (skapas automatiskt, gitignore)
 ├── templates/
 │   └── index.html
-└── static/
-    ├── style.css
-    └── script.js 
+├── static/
+│   ├── style.css
+│   └── script.js 
+├── .gitignore
+└── README.md
