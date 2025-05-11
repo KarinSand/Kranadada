@@ -19,7 +19,10 @@
      background: var(--bg);
      color: #222;
    }
-   
+   .hidden {
+    display: none;
+  }
+  
    body { display: flex; flex-direction: column; }
    
    /* header */
@@ -79,7 +82,7 @@
    
    #timeline {
      width: 100%;
-     max-width: 1000px;
+     max-width: 10000px;
      margin: 2.2rem 0 1rem;
      display: flex;
      gap: 1rem;
@@ -98,20 +101,42 @@
    }
    
    .card {
-     min-width: 200px;
-     padding: 1rem .85rem;
-     background: #fff;
-     border: 2px solid var(--card-edge);
-     border-radius: 12px;
-     text-align: center;
-     font-weight: 700;
-     cursor: grab;
-     user-select: none;
-     box-shadow: 0 6px 12px rgba(0,0,0,.07);
-     transition: transform .18s ease, box-shadow .18s ease;
-     position: relative;
-     z-index: 1;
-   }
+    width: 200px;
+    height: 300px;
+    padding: 1rem 0.85rem;
+    background: #fff;
+    border: 2px solid var(--card-edge);
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 6px 12px rgba(0,0,0,.07);
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    z-index: 1;
+  
+      /* G07-199 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word;
+  }
+   /* G07-199 */
+  .card-hint {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #444;
+    margin-top: auto;
+  }
+  
+  
    .card:hover   { transform: translateY(-4px) rotate(-0.4deg); }
    .card:active  { cursor: grabbing; transform: scale(.96); }
    
@@ -160,7 +185,18 @@
      font-size: 1.6rem;
      color: var(--accent);
    }
-   
+   .card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-hint {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #444;
+  }
+  
 
    @media (max-width: 600px) {
      .card { min-width: 160px; }
