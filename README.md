@@ -38,7 +38,7 @@ Spelet ska nu laddas i webbläsaren.
 
 **Mappstruktur** – så här ska filerna ligga:
 
-structure = """kranadada/
+kranadada/
 ├── app.py
 ├── init_db.py
 ├── cards_only.db         (skapas automatiskt, gitignore)
@@ -49,5 +49,3 @@ structure = """kranadada/
 │   └── script.js 
 ├── .gitignore
 └── README.md
-"""
-print(structure)
