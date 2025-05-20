@@ -6,8 +6,6 @@ BASE = pathlib.Path(__file__).resolve().parent
 DB   = BASE / "database" / "cards_only.db"
 DB.parent.mkdir(exist_ok=True)
 
-
-
 app = Flask(__name__, static_folder="frontend")  
 CORS(app, resources={r"/*": {"origins": "*"}})  
 
