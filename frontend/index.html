@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Krånådådå</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Krånådådå</h1>
+    <span id="category-badge" class="category-label hidden"></span>
+    <button id="help-btn" class="btn tertiary hidden">?</button>
+  </header>
+
+  <main id="category-screen">
+    <h2>Välj kategori</h2>
+    <div class="category-buttons">
+      <button class="btn category-btn" data-category="sport">Sport</button>
+      <button class="btn category-btn" data-category="fritid">Fritid</button>
+      <button class="btn category-btn" data-category="historia">Historia</button>
+      <button class="btn category-btn" data-category="normal">Normal</button>
+    </div>
+  </main>
+
+  <section id="game-screen" class="hidden">
+    <div id="score-board">Poäng <span id="score">0</span></div>
+
+    <div class="top-buttons">
+      <button id="menu-btn"    class="btn secondary">← Välj annan kategori</button>
+      <button id="restart-btn" class="btn secondary">↻ Omstart</button>
+    </div>
+
+    <div id="timeline" class="timeline">
+      <span class="tl-label left">Äldst</span>
+      <span class="tl-label right">Nyast</span>
+    </div>
+
+    <div id="deck">
+      <div id="current-card" class="card" draggable="true"></div>
+    </div>
+
+  </section>
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-box">
+      <h3>Så spelar du</h3>
+      <ol>
+        <li>Dra kortet till rätt plats på tidslinjen.</li>
+        <li>Äldst längst till vänster, nyast till höger.</li>
+        <li>Poäng +1 för varje korrekt placering (10 kort totalt).</li>
+      </ol>
+      <button id="close-help" class="btn primary">Fatta!</button>
+    </div>
+  </div>
+  <div id="end-modal" class="modal hidden">
+    <div class="modal-box">
+      <h3>Spelet slut!</h3>
+      <p>Du fick <strong id="end-score">0</strong> poäng.</p>
+  
+      <div class="top-buttons">
+        <button id="end-restart" class="btn primary">↻ Spela igen</button>
+        <button id="end-menu"    class="btn secondary">⏮ Välj kategori</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
