@@ -24,6 +24,7 @@
       <button class="btn category-btn" data-category="normal">Normal</button>
     </div>
   </main>
+  
 
   <section id="game-screen" class="hidden">
     <div id="score-board">Poäng <span id="score">0</span></div>
@@ -31,6 +32,10 @@
     <div class="top-buttons">
       <button id="menu-btn"    class="btn secondary">← Välj annan kategori</button>
       <button id="restart-btn" class="btn secondary">↻ Omstart</button>
+      <div class="gamble-controls">
+        <button id="gamble-btn" class="btn secondary">Aktivera gamble-läge</button>
+        <button id="check-gamble-btn" class="btn primary hidden">Kolla kort</button>
+      </div>
     </div>
 
     <div id="timeline" class="timeline">
@@ -62,6 +67,7 @@
       <div class="top-buttons">
         <button id="end-restart" class="btn primary">↻ Spela igen</button>
         <button id="end-menu"    class="btn secondary">⏮ Välj kategori</button>
+        <div id="difficulty-indicator" class="category-label"></div>
       </div>
     </div>
   </div>
