@@ -21,10 +21,79 @@ html,body{height:100%;
 .hidden{display:none!important;}
 
 body { display: flex; flex-direction: column; }
-body.theme-sport    { --accent:#55c739; --accent-dark:#308e04; --accent-lite:#e0f6e3; }
-body.theme-fritid   { --accent:#e97f28; --accent-dark:#b9701d; --accent-lite:#eee5ff; }
-body.theme-historia { --accent:#FD40FD; --accent-dark:#8b1b80; --accent-lite:#fde4e2; }
-body.theme-normal   { --accent:#2196F3; --accent-dark:#0d47a1; --accent-lite:#dbeeff; }
+/*------------------------färgteman på kort-------------------------------*/
+body { display: flex; flex-direction: column; }
+body.theme-sport {
+  --accent: #3c8073;
+  --accent-dark: #2d5c52;   /* mörkare grön */
+  --accent-lite: #a4d2c8;   /* ljusare grön */
+}
+
+body.theme-fritid {
+  --accent: #F6AD28;
+  --accent-dark: #c88700;   /* mörkare orange/gul */
+  --accent-lite: #ffe2a8;   /* ljusare variant */
+}
+
+body.theme-historia {
+  --accent: #783c7f;
+  --accent-dark: #55285a;   /* mörkare lila */
+  --accent-lite: #c9a3ce;   /* ljusare lila */
+}
+
+body.theme-normal {
+  --accent: #2D52E7;
+  --accent-dark: #1b36a9;   /* mörkare blå */
+  --accent-lite: #aabafc;   /* ljusare blå */
+}
+/*-------------------------------------------------------------------*/
+/* Specifika färger beroende på kategori på startsidan */
+.category-btn[data-category="sport"] {
+
+  background-color: #3c8073; 
+  width: 150px;
+  height: 200px;
+}
+
+.category-btn[data-category="fritid"] {
+  background-color: #F6AD28; /* Yellow */
+  width: 150px; 
+  height: 200px; 
+}
+
+.category-btn[data-category="historia"] {
+  background-color: #783c7f; /* purple */
+  width: 150px; 
+  height: 200px; 
+}
+
+.category-btn[data-category="normal"] {
+  background-color: #2D52E7; /* blue */
+  width: 150px; 
+  height: 200px;
+}
+
+.card .hint-overlay {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-dark);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+  animation: fadein 0.3s ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/*-------------------------------------------------------------------*/
 
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
@@ -40,12 +109,12 @@ header h1{font-weight:700;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3rem; /* Flytta rubriken längre upp */
+  padding-top: 3rem; 
   text-align: center;
 }
 
 #category-screen h2 {
-  font-size: 2.2rem; /* Gör rubriken större */
+  font-size: 2.2rem; 
   margin-bottom: 2rem;
 }
 
@@ -129,14 +198,14 @@ header h1{font-weight:700;
 }
 
 #timeline{
-  position:relative;
+  /*tog bort position:relative;*/
   width:100%;
   max-width:1000px;
   margin:1.4rem auto 1rem;
   display:flex;gap:1.2rem;
   overflow-x:auto;
   padding:2.2rem 0;
-  background:rgba(0,102,212,.05);
+    /*tog bort backgrund vid tidslinje*/
   border-radius:8px;
 }
 #timeline::after{
@@ -190,7 +259,7 @@ header h1{font-weight:700;
   position:relative;
   flex:0 0 auto;
   width:80px;
-  height:160px;
+  height:150px; /*-----------------------------fix------------------------- */
   cursor:pointer;
   z-index:3;
   background:rgba(0,102,212,.05);
