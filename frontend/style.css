@@ -124,6 +124,10 @@ header h1{font-weight:700;
   display:flex;gap:.45rem;
   align-items:center;
 }
+#life-board{
+  font-weight:700;
+  margin-bottom:0.5rem;
+}
 #score-board span{font-weight:800;
   font-size:1.3rem;
 }
@@ -296,4 +300,14 @@ header h1{font-weight:700;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+}
+/* === 3-livsläge – TILLAGT === */
+#score-board #life-board{
+  margin-left:.75rem;      /* space mellan poäng och hjärtan */
+  padding-left:.75rem;  
+  border-left:1px solid #ffffff77; 
+}
+
+#score-board #lives{
+  font-size:1.35rem;
 }

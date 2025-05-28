@@ -27,11 +27,16 @@
   
 
   <section id="game-screen" class="hidden">
-    <div id="score-board">Poäng <span id="score">0</span></div>
-
+    <div id="score-board">
+  Poäng <span id="score">0</span>
+  <span id="life-board" class="hidden">
+    <span id="lives">3</span>
+  </span>
+</div>
     <div class="top-buttons">
       <button id="menu-btn"    class="btn secondary">← Välj annan kategori</button>
       <button id="restart-btn" class="btn secondary">↻ Omstart</button>
+      <button id="life-btn" class="btn secondary">Aktivera 3-livsläge</button>
       <div class="gamble-controls">
         <button id="gamble-btn" class="btn secondary">Aktivera gamble-läge</button>
         <button id="check-gamble-btn" class="btn primary hidden">Kolla kort</button>

@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     endScore: $("end-score"),
     endAgain: $("end-restart"),
     endMenu: $("end-menu"),
+
+    /* 3-livs-UI */
+    lifeBtn  : $("life-btn"),
+    lifeBoard: $("life-board"),
+    livesEl  : $("lives"),
   };
 
   let category = null;
@@ -33,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let draggedCard = null;
   let gambleMode = false;
   let gambleCards = [];
+
+  /* 3-livs-läge */
+  let lifeMode = false;
+  let lives     = 3;
 
   // Event listeners för kategori-knappar
   document.querySelectorAll(".category-btn").forEach((btn) => {
@@ -66,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   els.restartBtn.onclick = startGame;
   els.menuBtn.onclick = backToMenu;
+  if (els.lifeBtn) els.lifeBtn.addEventListener("click", toggleLifeMode);   // 3-livs-knapp
 
   // Drag & Drop event listeners för nuvarande kort
   els.current.ondragstart = (e) => {
@@ -105,6 +115,14 @@ document.addEventListener("DOMContentLoaded", () => {
     els.gameScreen.classList.remove("hidden");
     els.endModal.classList.add("hidden");
 
+    /* 3-livs-reset för ny runda */
+    if (lifeMode) {
+      lives = 3;
+      updateLivesUI();
+      els.lifeBoard.classList.remove("hidden");
+    }
+    if (els.lifeBtn) els.lifeBtn.disabled = false;   // på/av får göras innan första spelardraget
+
       drawNext();
     // Lägg första kortet automatiskt
     const firstCard = deck.pop();
@@ -119,8 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     categoryScreen.classList.add("hidden");
     gameScreen.classList.remove("hidden");
-
-
   }
 
   // Hämta kort från server
@@ -145,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     els.current.dataset.year = card.year;
     els.current.className = "card category-colored";
-
   }
 
   // Skapa dropzone i tidslinjen
@@ -183,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (!placed[idx - 1] || placed[idx - 1].year <= yr) &&
       (!placed[idx] || yr <= placed[idx].year);
 
-    // === GAMBLE-LÄGE ===
+    // GAMBLE-LÄGE
     if (gambleMode) {
       // Lägg till kortet på tidslinjen
       const newCard = document.createElement("div");
@@ -218,6 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
       els.timeline.insertBefore(newCard, dropzone);
       placed.splice(idx, 0, { title: draggedCard.title, year: yr });
 
+      /* första spelardraget ⇒ spärrar knappen */
+      if (placed.length > 1 && els.lifeBtn && !els.lifeBtn.disabled) {
+        els.lifeBtn.disabled = true;
+      }
+
       refreshDropzones();
       drawNext();
     } else {
@@ -225,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
       els.score.textContent = points;
       els.current.classList.add("incorrect");
       setTimeout(() => els.current.classList.remove("incorrect"), 900);
+      loseLife();                   // 3-livs-avdrag vid fel
     }
   }
 
@@ -268,6 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gc.cardEl.remove(); // ta bort från tidslinjen
         deck.push({ title: gc.title, year: gc.year }); // lägg tillbaka i leken
       }
+      loseLife();                   // 3-livs-avdrag vid misslyckad gamble
     }
 
     gambleCards = [];
@@ -300,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkGambleCards();
   });
 
-  /* Uppdatera drop‑zoner */
+  /* Uppdatera drop-zoner */
   function refreshDropzones() {
     els.timeline.querySelectorAll(".dropzone").forEach((z) => z.remove());
 
@@ -319,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     els.endScore.textContent = points;
     els.endModal.classList.remove("hidden");
+    if (els.lifeBtn) els.lifeBtn.disabled = false;   // lås upp knappen för nästa runda
   }
 
   // Sätt färgtema
@@ -353,12 +376,40 @@ document.addEventListener("DOMContentLoaded", () => {
     placed = [];
     points = 0;
     els.score.textContent = points;
+    if (els.lifeBtn) els.lifeBtn.disabled = false;
+    if (els.lifeBoard) els.lifeBoard.classList.add("hidden");
   }
 
   // Dummy funktion för kategori baserat på titel, måste definieras
   function getCardCategory(title) {
-    // Exempel: returnera "sport", "fritid" eller "historia" beroende på title
-    // Här kan du lägga in logik eller default-värde
     return category || "normal";
+  }
+
+  /* ===== 3-LIVS-HJÄLPPUNKTER ===== */
+  function updateLivesUI() {
+    els.livesEl.textContent = "❤️".repeat(lives);
+  }
+
+  function loseLife() {
+    if (!lifeMode) return;
+    lives--;
+    updateLivesUI();
+    if (lives <= 0) showEnd();
+  }
+
+  function toggleLifeMode() {
+    if (els.lifeBtn.disabled) return;          // spärrad efter första draget
+    lifeMode = !lifeMode;
+    if (lifeMode) {
+      lives = 3;
+      updateLivesUI();
+      els.lifeBoard.classList.remove("hidden");
+      els.lifeBtn.textContent = "3-livsläge: På";
+      els.lifeBtn.classList.add("primary");
+    } else {
+      els.lifeBoard.classList.add("hidden");
+      els.lifeBtn.textContent = "Aktivera 3-livsläge";
+      els.lifeBtn.classList.remove("primary");
+    }
   }
 });
