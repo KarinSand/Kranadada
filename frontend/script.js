@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const API = "";
-  const THEMES = ["sport", "fritid", "historia"];
+  const THEMES = ["sport", "fritid", "historia", "samtid"];
   const CARDS_PER_ROUND = 10;
 
   const $ = (id) => document.getElementById(id);
@@ -146,35 +146,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return res.json();
   }
 
-  // Visa nästa kort från leken
-  function drawNext() {
-    if (!deck.length) {
-      return showEnd();
-      
-    }
-
-    const card = deck.pop();
-
-    els.current.innerHTML = `
-    <div class="card-title">${card.title}</div>
-    <div class="card-hint hidden"></div>
-  `;
-  els.current.draggable = true;
-  els.current.dataset.title = card.title;
-  els.current.dataset.year = card.year;
-  els.current.dataset.errors = "0";
-  els.current.className = "card category-colored";
-  
-
-    Object.assign(els.current, {
-      textContent: card.title,
-      draggable: true,
-    });
-
-    els.current.dataset.year = card.year;
-    els.current.className = "card category-colored";
+ // Visa nästa kort från lekenMore actions
+ function drawNext() {
+  if (!deck.length) {
+    return showEnd();
+    
   }
 
+  const card = deck.pop();
+
+  els.current.innerHTML = `
+  <div class="card-title">${card.title}</div>
+  <div class="card-hint hidden"></div>
+`;
+els.current.draggable = true;
+els.current.dataset.title = card.title;
+els.current.dataset.year = card.year;
+els.current.dataset.errors = "0";
+els.current.className = "card category-colored";
+
+
+}
   // Skapa dropzone i tidslinjen
   function addDrop(index) {
     const dropZone = document.createElement("div");
@@ -408,14 +400,15 @@ document.addEventListener("DOMContentLoaded", () => {
       getHint(title);
     });
   });
-  
   function getHint(title) {
-    fetch(`/hint/${encodeURIComponent(title)}`)
+    const clean = title.replace(/\s*\(.*?\)\s*$/, "").trim();
+  
+    fetch(`/hint/${encodeURIComponent(clean)}`)
       .then(response => response.json())
       .then(data => {
-        const hintDiv = els.current.querySelector(".card-hint");
+        const hintDiv = document.querySelector(".card-hint");
         if (hintDiv) {
-          hintDiv.textContent = data.hint;
+          hintDiv.textContent = "💡 " + data.hint;
           hintDiv.classList.remove("hidden");
           hintDiv.classList.add("used");
         }
@@ -425,14 +418,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
   
-  
-  
-
   // Dummy funktion för kategori baserat på titel, måste definieras
   function getCardCategory(title) {
     return category || "blandat";
   }
-
   /* ===== 3-LIVS-HJÄLPPUNKTER ===== */
   function updateLivesUI() {
     els.livesEl.textContent = "❤️".repeat(lives);

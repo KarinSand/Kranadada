@@ -83,17 +83,7 @@ with sqlite3.connect(DB) as conn:
     ("Amerikanska självständigheten",              1776, "historia", ""),
     ("Franska revolutionen",                       1789, "historia", ""),
     ("Berlinmurens fall",                          1989, "historia", ""),
-    ("Terroattacken 11 september",                 2001, "historia", ""),
-    
-    #SAMTID 10–15 senaste åren
-    ("Brexit folkomröstning",                      2016, "samtid", ""),
-    ("Game of Thrones-finalen visas",              2019, "samtid", ""),
-    ("Suezkanalen blockeras av Ever Given",        2021, "samtid", ""),
-    ("Joe Biden blir president",                   2021, "samtid", ""),
-    ("Putin invaderar Ukraina",                    2022, "samtid", ""),
-    ("Oppenheimer och Barbie släpps samma dag",    2023, "samtid", "")
-
-
+    ("Terroattacken 11 september",                 2001, "historia", "")
 ]
 
     cur.executemany(

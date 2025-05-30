@@ -48,6 +48,7 @@ import sqlite3
 def get_hint(title):
     # Rensa bort ev. suffix
     clean = title.rsplit(" (", 1)[0].strip()
+    
 
     # Använd samma DB-väg som övriga API:t
     conn = sqlite3.connect(DB)
