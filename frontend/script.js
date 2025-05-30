@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dummy funktion för kategori baserat på titel, måste definieras
   function getCardCategory(title) {
-    return category || "normal";
+    return category || "blandat";
   }
 
   /* ===== 3-LIVS-HJÄLPPUNKTER ===== */

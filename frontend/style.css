@@ -2,10 +2,10 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root {
 
-  --accent:      #0066d4;
+  --accent:      #004996;
   --accent-dark: #00478d;
   --accent-lite: #d9e8ff;
-  --bg:          #f5f7fe;
+  --bg:          #fffcf0;
   --card-edge:   #e0e3f1;
   --good:        #2ca650;
   --bad:         #e63946;
@@ -41,7 +41,7 @@ body.theme-historia {
   --accent-lite: #c9a3ce;   /* ljusare lila */
 }
 
-body.theme-normal {
+body.theme-blandat {
   --accent: #2D52E7;
   --accent-dark: #1b36a9;   /* mörkare blå */
   --accent-lite: #aabafc;   /* ljusare blå */
@@ -54,23 +54,25 @@ body.theme-normal {
   width: 150px;
   height: 200px;
 }
-
 .category-btn[data-category="fritid"] {
   background-color: #F6AD28; /* Yellow */
   width: 150px; 
   height: 200px; 
 }
-
+.category-btn[data-category="Blandat"] {
+  background-color: #2D52E7; /* blue */
+  width: 150px; 
+  height: 200px;
+}
 .category-btn[data-category="historia"] {
   background-color: #783c7f; /* purple */
   width: 150px; 
   height: 200px; 
 }
-
-.category-btn[data-category="normal"] {
-  background-color: #2D52E7; /* blue */
+.category-btn[data-category="samtid"] {
+  background-color: #D16BA5; /* purple */
   width: 150px; 
-  height: 200px;
+  height: 200px; 
 }
 
 .card .hint-overlay {
@@ -97,14 +99,18 @@ body.theme-normal {
 
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
-  color:#fff;text-align:center;
+  color:#ef9e86;text-align:center;
   padding:1.6rem 1rem 1.3rem;
   box-shadow:0 3px 12px rgba(0,0,0,.25);
 }
-header h1{font-weight:700;
-  letter-spacing:1px;
-}
+header h1 {
+  font-family: 'Staatliches', sans-serif;
 
+  letter-spacing: 25px;
+  font-size: 7.5rem; 
+  -webkit-text-stroke: 0.001px black;
+
+}
 #category-screen {
   display: flex;
   flex-direction: column;
@@ -215,7 +221,7 @@ header h1{font-weight:700;
   left:0;
   right:0;
   height:4px;
-  background:#cdd4ec;
+  background:#06070b;
   pointer-events:none;
   z-index:0;
 }
@@ -224,7 +230,7 @@ header h1{font-weight:700;
   top:-1.7rem;
   font-size:.85rem;
   font-weight:700;
-  color:#555;
+  color:#796c6c;
 }
 .tl-label.left {left:0;
   transform:translateX(-4px);
@@ -339,9 +345,17 @@ header h1{font-weight:700;
 }
 .modal-box h3{margin-bottom:.8rem;
 }
-
+footer {
+  text-align: center;
+  padding: 1rem; 
+  margin-top:250px; 
+  font-size: 0.85rem;
+  color: #666;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+}
 @media(max-width:600px){
-  .card{min-width:160px;}
+  .card{min-width:150px;}
 }
 
 .card.category-colored {
