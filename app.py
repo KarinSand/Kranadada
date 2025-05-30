@@ -10,10 +10,10 @@ app = Flask(__name__, static_folder="frontend")
 CORS(app, resources={r"/*": {"origins": "*"}})  
 
 def fetch_cards(category):
-    """Hämtar alla kort i angiven kategori (eller alla om 'normal')."""
+    """Hämtar alla kort i angiven kategori (eller alla om 'blandat')."""
     with sqlite3.connect(DB) as conn:
         cur = conn.cursor()
-        if category == "normal":
+        if category == "blandat":
             cur.execute("SELECT NAME, YEAR FROM CARD")
         else:
             cur.execute("SELECT NAME, YEAR FROM CARD WHERE CATEGORY = ?", (category,))
@@ -21,7 +21,7 @@ def fetch_cards(category):
 
 @app.route("/categories")
 def categories():
-    return jsonify(["sport", "fritid", "historia", "normal"])
+    return jsonify(["sport", "historia", "blandat"])
 
 @app.route("/questions")
 def questions():

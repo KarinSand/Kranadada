@@ -4,9 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Krånådådå</title>
+  <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
   <header>
@@ -19,20 +21,23 @@
     <h2>Välj kategori</h2>
     <div class="category-buttons">
       <button class="btn category-btn" data-category="sport">Sport</button>
-      <button class="btn category-btn" data-category="fritid">Fritid</button>
       <button class="btn category-btn" data-category="historia">Historia</button>
-      <button class="btn category-btn" data-category="normal">Normal</button>
+      <button class="btn category-btn" data-category="blandat">Blandat</button>
+      <button class="btn category-btn" data-category="samtid">Samtid</button>
+      <button class="btn category-btn" data-category="fritid">Fritid</button>
     </div>
   </main>
-  
-
   <section id="game-screen" class="hidden">
-    <div id="score-board">Poäng <span id="score">0</span>
-    </div>
-
+    <div id="score-board">
+  Poäng <span id="score">0</span>
+  <span id="life-board" class="hidden">
+    <span id="lives">3</span>
+  </span>
+</div>
     <div class="top-buttons">
       <button id="menu-btn"    class="btn secondary">← Välj annan kategori</button>
       <button id="restart-btn" class="btn secondary">↻ Omstart</button>
+      <button id="life-btn" class="btn secondary">Aktivera 3-livsläge</button>
       <div class="gamble-controls">
       <button id="gamble-btn" class="btn secondary">Aktivera gamble-läge</button>
       <button id="check-gamble-btn" class="btn primary hidden">Kolla kort</button>
@@ -60,7 +65,7 @@
         <li>Äldst längst till vänster, nyast till höger.</li>
         <li>Poäng +1 för varje korrekt placering (10 kort totalt).</li>
       </ol>
-      <button id="close-help" class="btn primary">Fatta!</button>
+      <button id="close-help" class="btn primary">Fattar!</button>
     </div>
   </div>
   <div id="end-modal" class="modal hidden">
@@ -75,7 +80,9 @@
       </div>
     </div>
   </div>
-
+  <footer>
+    <p>&copy; 2025 Krånådådå. </p>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

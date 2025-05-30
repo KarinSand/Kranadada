@@ -2,25 +2,95 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root {
 
-  --accent:      #0066d4;
+  --accent:      #004996;
   --accent-dark: #00478d;
   --accent-lite: #d9e8ff;
-  --bg:          #f5f7fe;
+  --bg:          #fffcf0;
   --card-edge:   #e0e3f1;
-  --good:        #2ca650;
+  --good:        #4CAF50;
   --bad:         #e63946;
   --good-bg:     #e9f7ee;
   --bad-bg:      #fdecef;
 }
-
 html,body{height:100%;
   font-family:"Nunito",system-ui,sans-serif;
   background:var(--bg);color:#222;
 }
-
 .hidden{display:none!important;}
-
 body { display: flex; flex-direction: column; }
+/*------------------------färgteman på kort-------------------------------*/
+body { display: flex; flex-direction: column; }
+body.theme-sport {
+  --accent: #3c8073;
+  --accent-dark: #2d5c52;   /* mörkare  */
+  --accent-lite: #a4d2c8;   /* ljusare  */
+}
+body.theme-fritid {
+  --accent: #F6AD28;
+  --accent-dark: #c88700;   /* mörkare */
+  --accent-lite: #ffe2a8;   /* ljusare  */
+}
+body.theme-historia {
+  --accent: #783c7f;
+  --accent-dark: #55285a;   /* mörkare */
+  --accent-lite: #c9a3ce;   /* ljusare */
+}
+body.theme-blandat {
+  --accent: #2D52E7;
+  --accent-dark: #1b36a9;   /* mörkare */
+  --accent-lite: #aabafc;   /* ljusare */
+}
+body.theme-samtid {
+  --accent: #D16BA5;
+  --accent-dark: #9e4e7e;   /* mörkare */
+  --accent-lite: #f0b8d8;   /* ljusare */
+}
+/*-------------------------------------------------------------------*/
+/* Specifika färger beroende på kategori på startsidan */
+.category-btn[data-category="sport"] {
+  background-color: #3c8073; 
+  width: 150px;
+  height: 200px;
+}
+.category-btn[data-category="fritid"] {
+  background-color: #F6AD28; 
+  width: 150px; 
+  height: 200px; 
+}
+.category-btn[data-category="Blandat"] {
+  background-color: #2D52E7; 
+  width: 150px; 
+  height: 200px;
+}
+.category-btn[data-category="historia"] {
+  background-color: #783c7f; 
+  width: 150px; 
+  height: 200px; 
+}
+.category-btn[data-category="samtid"] {
+  background-color: #D16BA5;
+  width: 150px; 
+  height: 200px; 
+}
+.card .hint-overlay {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-dark);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+  animation: fadein 0.3s ease-in-out;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+/*-------------------------------------------------------------------*/
 /*------------------------färgteman på kort-------------------------------*/
 body { display: flex; flex-direction: column; }
 body.theme-sport {
@@ -97,29 +167,29 @@ body.theme-normal {
 
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
-  color:#fff;text-align:center;
+  color:#ef9e86;text-align:center;
   padding:1.6rem 1rem 1.3rem;
   box-shadow:0 3px 12px rgba(0,0,0,.25);
 }
-header h1{font-weight:700;
-  letter-spacing:1px;
+header h1 {
+  font-family: 'Staatliches', sans-serif;
+  letter-spacing: 25px;
+  font-size: 7.5rem; 
+  -webkit-text-stroke: 0.001px black;
 }
-
 #category-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 3rem; 
+  padding-top: 3rem; 
   text-align: center;
 }
-
 #category-screen h2 {
+  font-size: 2.2rem; 
   font-size: 2.2rem; 
   margin-bottom: 2rem;
 }
-
-
-
 
 .category-label{
   display:inline-block;
@@ -141,8 +211,6 @@ header h1{font-weight:700;
   border-radius:50%;
   margin-left:.8rem;
 }
-
-
 .btn{
   font-size:1.05rem;
   padding:.68rem 2rem;
@@ -179,8 +247,6 @@ header h1{font-weight:700;
   flex-wrap: wrap; /* så att de inte går utanför skärmen på små enheter */
   justify-content: center; /* centrera knapparna horisontellt */
 }
-
-
 #score-board{
   width: 90%;
   margin: 2rem auto 0 auto;
@@ -196,14 +262,17 @@ header h1{font-weight:700;
 #score-board span{font-weight:800;
   font-size:1.3rem;
 }
-
 #timeline{
   /*tog bort position:relative;*/
+  /*tog bort position:relative;*/
   width:100%;
+  margin: auto;
   max-width:1000px;
   margin:1.4rem auto 1rem;
   display:flex;gap:1.2rem;
   overflow-x:auto;
+  padding:1.2rem 0;
+    /*tog bort backgrund vid tidslinje*/
   padding:2.2rem 0;
     /*tog bort backgrund vid tidslinje*/
   border-radius:8px;
@@ -214,7 +283,7 @@ header h1{font-weight:700;
   left:0;
   right:0;
   height:4px;
-  background:#cdd4ec;
+  background:#06070b;
   pointer-events:none;
   z-index:0;
 }
@@ -223,7 +292,7 @@ header h1{font-weight:700;
   top:-1.7rem;
   font-size:.85rem;
   font-weight:700;
-  color:#555;
+  color:#796c6c;
 }
 .tl-label.left {left:0;
   transform:translateX(-4px);
@@ -249,7 +318,6 @@ header h1{font-weight:700;
 .card:active { cursor:grabbing; transform:scale(.96); }
 .card.correct   { border-color:var(--good); background:var(--good-bg); }
 .card.incorrect { border-color:var(--bad);  background:var(--bad-bg); }
-
 .card,
 .dropzone {
   flex-shrink: 0; /* Hindra flex från att trycka ihop zonerna och korten */
@@ -281,9 +349,10 @@ header h1{font-weight:700;
   flex:0 0 auto;
   width:80px;
   height:150px; /*-----------------------------fix------------------------- */
+  height:150px; /*-----------------------------fix------------------------- */
   cursor:pointer;
   z-index:3;
-  background:rgba(0,102,212,.05);
+
   border-radius:6px;transition:background .25s;
 }
 .dropzone::before{
@@ -291,7 +360,7 @@ header h1{font-weight:700;
   left:50%;
   top:0;
   transform:translateX(-50%);
-  width:8px;
+  width:100%;
   height:100%;
   background:var(--accent-lite);
   border-radius:3px;
@@ -318,29 +387,23 @@ header h1{font-weight:700;
   text-shadow:0 0 10px var(--accent);
   z-index:4;
 }
-
 .card.gamble-pending {
   border: 4px solid black;
 }
-
 #deck {
   display: flex;
   justify-content: center; /* centrerar kortet horisontellt */
   margin-top: 2rem; /* lite avstånd uppåt */
 }
-
-
 @keyframes flash{0%,100%{background:var(--accent-lite);
 }50%{background:var(--accent);}
 }
 .dropzone.flash-start::before{animation:flash 2s ease-in-out 3,pulse 1.2s infinite;
 }
-
 @keyframes pulse{
   0%,100%{box-shadow:0 0 10px 3px var(--accent);}
   50%   {box-shadow:0 0 22px 8px var(--accent);}
 }
-
 .modal{
   position:fixed;
   inset:0;
@@ -359,27 +422,31 @@ header h1{font-weight:700;
 }
 .modal-box h3{margin-bottom:.8rem;
 }
-
-@media(max-width:600px){
-  .card{min-width:160px;}
+footer {
+  text-align: center;
+  padding: 1rem; 
+  margin-top:250px; 
+  font-size: 0.85rem;
+  color: #666;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
 }
-
+@media(max-width:600px){
+  .card{min-width:150px;}
+}
 .card.category-colored {
   background: var(--accent-lite);
   border-color: var(--accent);
   color: var(--accent-dark);
 }
-
 .difficulty-selector {
   font-family: Arial, sans-serif;
   margin: 1rem 0;
 }
-
 .difficulty-selector label {
   font-size: 1.1rem;
   margin-right: 0.5rem;
 }
-
 #difficulty-select {
   font-size: 1.1rem;
   padding: 0.3rem 0.5rem;
