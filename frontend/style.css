@@ -256,13 +256,22 @@ header h1{font-weight:700;
 }
 .card-hint {
   margin-top: 10px;
-  font-size: 0.9rem;
+  color: gray;
+  font-style: italic;
+  font-size: 0.5rem;
   color: black;
-  background: #fff3cd;
+  background: #ffffff;
   padding: 6px;
   border-radius: 4px;
   border: 1px solid #ffeeba;
+
 }
+.card-hint.used {
+  color: gray;
+  font-style: italic;
+  font-size: 0.5rem;
+}
+
 .hidden {
   display: none;
 }

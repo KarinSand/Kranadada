@@ -384,6 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (hintDiv) {
           hintDiv.textContent = data.hint;
           hintDiv.classList.remove("hidden");
+          hintDiv.classList.add("used");
         }
       })
       .catch(error => {
