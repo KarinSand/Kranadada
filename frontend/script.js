@@ -134,17 +134,21 @@ document.addEventListener("DOMContentLoaded", () => {
   function drawNext() {
     if (!deck.length) {
       return showEnd();
+      
     }
 
     const card = deck.pop();
 
-    Object.assign(els.current, {
-      textContent: card.title,
-      draggable: true,
-    });
-
-    els.current.dataset.year = card.year;
-    els.current.className = "card category-colored";
+    els.current.innerHTML = `
+    <div class="card-title">${card.title}</div>
+    <div class="card-hint hidden"></div>
+  `;
+  els.current.draggable = true;
+  els.current.dataset.title = card.title;
+  els.current.dataset.year = card.year;
+  els.current.dataset.errors = "0";
+  els.current.className = "card category-colored";
+  
 
   }
 
@@ -223,8 +227,18 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       points = Math.max(0, points - 1);
       els.score.textContent = points;
+    
+      // Hantera felräkning för ledtråd
+      const errors = parseInt(els.current.dataset.errors || "0") + 1;
+      els.current.dataset.errors = errors;
+    
+      if (errors === 2) {
+        getHint(els.current.dataset.title);
+      }
+    
       els.current.classList.add("incorrect");
       setTimeout(() => els.current.classList.remove("incorrect"), 900);
+  
     }
   }
 
@@ -354,6 +368,31 @@ document.addEventListener("DOMContentLoaded", () => {
     points = 0;
     els.score.textContent = points;
   }
+  document.querySelectorAll(".hint-btn").forEach(button => {
+    button.addEventListener("click", event => {
+      const card = event.target.closest(".card");
+      const title = card.dataset.title;
+      getHint(title);
+    });
+  });
+  
+  function getHint(title) {
+    fetch(`/hint/${encodeURIComponent(title)}`)
+      .then(response => response.json())
+      .then(data => {
+        const hintDiv = els.current.querySelector(".card-hint");
+        if (hintDiv) {
+          hintDiv.textContent = data.hint;
+          hintDiv.classList.remove("hidden");
+        }
+      })
+      .catch(error => {
+        console.error("Fel vid hämtning av ledtråd:", error);
+      });
+  }
+  
+  
+  
 
   // Dummy funktion för kategori baserat på titel, måste definieras
   function getCardCategory(title) {

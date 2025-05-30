@@ -1,7 +1,7 @@
 import pathlib, sqlite3, random
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-
+#------------  Grundläggande setup
 BASE = pathlib.Path(__file__).resolve().parent
 DB   = BASE / "database" / "cards_only.db"
 DB.parent.mkdir(exist_ok=True)
@@ -41,27 +41,31 @@ def static_files(f):
     return send_from_directory(app.static_folder, f)
 
 # G07-199 - ledtrådar
-app.route("/hint/<title>")
+from flask import request, jsonify
+import sqlite3
+
+@app.route("/hint/<title>")
 def get_hint(title):
-    print(f"[DEBUG] Hintförfrågan för: {title}")
+    # Rensa bort ev. suffix
+    clean = title.rsplit(" (", 1)[0].strip()
+
+    # Använd samma DB-väg som övriga API:t
     conn = sqlite3.connect(DB)
     cursor = conn.cursor()
-
-    # ------------------Ta bort fel suffix vid behov
-    title = title.rsplit(" (", 1)[0].strip()
-
-    cursor.execute("SELECT YEAR FROM CARD WHERE LOWER(NAME) = LOWER(?)", (title.lower(),))
+    cursor.execute(
+        "SELECT YEAR FROM CARD WHERE LOWER(NAME) = LOWER(?)",
+        (clean.lower(),)
+    )
     row = cursor.fetchone()
     conn.close()
 
-    if row:
-        year = row[0]
-        lower = year - 45
-        upper = year + 45
-        return jsonify({"hint": f"Händelsen inträffade mellan {lower} och {upper}."})
-    else:
+    if not row:
         return jsonify({"hint": "Ingen ledtråd hittades."}), 404
 
-
+    year  = row[0]
+    lower = year - 25
+    upper = year + 25
+    hint  = f"Händelsen inträffade mellan {lower} och {upper}."
+    return jsonify({"hint": hint})
 if __name__ == "__main__":
     app.run(debug=True, port=8000)

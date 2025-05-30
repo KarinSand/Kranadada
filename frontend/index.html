@@ -27,14 +27,15 @@
   
 
   <section id="game-screen" class="hidden">
-    <div id="score-board">Poäng <span id="score">0</span></div>
+    <div id="score-board">Poäng <span id="score">0</span>
+    </div>
 
     <div class="top-buttons">
       <button id="menu-btn"    class="btn secondary">← Välj annan kategori</button>
       <button id="restart-btn" class="btn secondary">↻ Omstart</button>
       <div class="gamble-controls">
-        <button id="gamble-btn" class="btn secondary">Aktivera gamble-läge</button>
-        <button id="check-gamble-btn" class="btn primary hidden">Kolla kort</button>
+      <button id="gamble-btn" class="btn secondary">Aktivera gamble-läge</button>
+      <button id="check-gamble-btn" class="btn primary hidden">Kolla kort</button>
       </div>
     </div>
 
@@ -45,6 +46,9 @@
 
     <div id="deck">
       <div id="current-card" class="card" draggable="true"></div>
+      <p id="hint-box"></p>
+
+
     </div>
 
   </section>
