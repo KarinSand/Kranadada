@@ -37,7 +37,7 @@ with sqlite3.connect(DB) as conn:
         exit(0)
 
     cards = [
-    #SPORT 12 st
+    #SPORT 84 st
     ("Första moderna OS",                          1896, "sport",    ""),
     ("OS i Stockholm",                             1912, "sport",    ""),
     ("Första Vasaloppet",                          1922, "sport",    ""),
@@ -59,7 +59,7 @@ with sqlite3.connect(DB) as conn:
     ("Tony Rickardsson vinner sin sjätte VM-titel i speedway", 2005, "sport", ""),
     ("Sverige vinner Davis Cup i tennis",           1984, "sport",    ""),
     ("Pernilla Wiberg vinner OS-guld i slalom",     1992, "sport",    ""),
-    ("Anja Pärson tar sju VM-guld i alpint",         2001, "sport",    ""),
+    ("Anja Pärson tar sju VM-guld i alpint",        2001, "sport",    ""),
     ("Sveriges damer vinner EM-guld i handboll",    2010, "sport",    ""),
     ("Henrik Larsson dominerar i EM 2004",          2004, "sport",    ""),
     ("Sverige slår ut Italien ur VM-kvalet",        2017, "sport",    ""),
@@ -81,8 +81,7 @@ with sqlite3.connect(DB) as conn:
     ("Mats Sundin draftas först i NHL",                   1989, "sport", ""),
     ("Tiger Woods vinner sin första Masters",             1997, "sport", ""),
     ("Usain Bolt vinner trippeltrippeln i OS",            2016, "sport", ""),
-    ("Simone Biles dominerar i OS",                       2016, "sport", ""),
-    ("Mo Farah vinner dubbelguld på 5 000/10 000 m",       2012, "sport", ""),
+    ("Mo Farah vinner dubbelguld på 5 000/10 000 m",      2012, "sport", ""),
     ("Roger Federer vinner sin 20:e Grand Slam",          2018, "sport", ""),
     ("Serena Williams tar sin 23:e Grand Slam-titel",     2017, "sport", ""),
     ("Lotta Schelin gör målrekord i damlandslaget",       2014, "sport", ""),
@@ -100,14 +99,9 @@ with sqlite3.connect(DB) as conn:
     ("Michael Jordan återvänder till NBA",                1995, "sport", ""),
     ("Shaquille O'Neal och Kobe Bryant vinner trippel",   2002, "sport", ""),
     ("LeBron James vinner sin första NBA-titel",          2012, "sport", ""),
-    ("Conor McGregor blir dubbel UFC-mästare",            2016, "sport", ""),
-    ("Khabib besegrar McGregor i UFC",                    2018, "sport", ""),
     ("Formel 1: Schumacher vinner sin sjunde VM-titel",   2004, "sport", ""),
     ("Lewis Hamilton tangerar Schumacher med 7 titlar",   2020, "sport", ""),
-    ("Allyson Felix blir mest OS-medaljerade friidrottaren", 2021, "sport", ""),
-    ("Marit Bjørgen blir mest OS-dekorerade vinteridrottare", 2018, "sport", ""),
     ("Charlotte Kalla tar tre medaljer i Pyeongchang",    2018, "sport", ""),
-    ("Stina Nilsson spurtar hem OS-guld",                 2018, "sport", ""),
     ("Frida Karlsson slår igenom i skid-VM",              2019, "sport", ""),
     ("Therese Johaug dominerar skid-VM",                  2021, "sport", ""),
     ("Mondo Duplantis sätter världsrekord i stav",        2020, "sport", ""),
@@ -115,7 +109,6 @@ with sqlite3.connect(DB) as conn:
     ("Innebandy-VM: Sverige vs Finland-klassiker",        2012, "sport", ""),
     ("Sverige vinner VM-guld i ridsport fälttävlan",      2022, "sport", ""),
     ("Sarah Sjöström tar OS-guld i 100 m fjäril",         2016, "sport", ""),
-    ("Sverige tar lagguld i OS i hästhoppning",           2021, "sport", ""),
     ("Sverige vinner curlingguld med Team Hasselborg",    2018, "sport", ""),
     ("Niklas Edin vinner VM-guld i curling",              2023, "sport", ""),
     ("USA vinner historiskt damfotbolls-VM",              1999, "sport", ""),
@@ -136,7 +129,7 @@ with sqlite3.connect(DB) as conn:
     ("TikTok lanseras globalt",                    2018, "fritid",   ""),
     ("Första Harry Potter-boken ges ut",           1997, "fritid",   ""),
 
-    #HISTORIA 18 st
+    #HISTORIA 39 st
     ("Slaget vid Hastings",                        1066, "historia", ""),
     ("Första korståget inleds",                    1096, "historia", ""),
     ("Jerusalem intas av korståget",               1099, "historia", ""),
@@ -146,15 +139,12 @@ with sqlite3.connect(DB) as conn:
     ("Digerdöden når Europa",                      1347, "historia", ""),
     ("Kalmarunionen bildas",                       1397, "historia", ""),
     ("Jan Hus bränns på bål",                      1415, "historia", ""),
-    ("Slaget vid Agincourt",                       1415, "historia", ""),
     ("Joan of Arc befriar Orléans",                1429, "historia", ""),
     ("Gutenbergs tryckpress",                      1440, "historia", ""),
     ("Leonardo da Vinci föds",                     1452, "historia", ""),
     ("Columbus upptäcker Amerika",                 1492, "historia", ""),
     ("Reformationen inleds av Martin Luther",      1517, "historia", ""),
-    ("Stockholms blodbad",                         1520, "historia", ""),
     ("Sverige blir protestantiskt",                1527, "historia", ""),
-    ("Slaget vid Lepanto",                         1571, "historia", ""),
     ("Trettiåriga kriget börjar",                  1618, "historia", ""),
     ("Mayflower anländer till Nordamerika",        1620, "historia", ""),
     ("Vasaskeppet sjunker",                        1628, "historia", ""),
