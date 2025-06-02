@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     timeline: $("timeline"),
     current: $("current-card"),
     score: $("score"),
+    difficultySelection: $("difficulty-selection"),
+    difficultyBtns: document.querySelectorAll(".difficulty-btn"),
+
 
     menuBtn: $("menu-btn"),
     restartBtn: $("restart-btn"),
@@ -49,10 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
       category = btn.dataset.category;
       setTheme(category);
       showBadge(category);
+      els.difficultySelection.classList.remove("hidden");
       els.helpBtn.classList.remove("hidden");
-      els.helpModal.classList.remove("hidden");
     });
   });
+
+  let difficulty = null; // 0 = Lätt, 1 = Svår, 2 = Normal
+
+  els.difficultyBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      difficulty = parseInt(btn.dataset.difficulty, 10);
+      els.difficultySelection.classList.add("hidden");
+      els.helpModal.classList.remove("hidden"); // Visa instruktioner innan spelstart
+    });
+  });
+
 
   els.closeHelp.onclick = () => {
     els.helpModal.classList.add("hidden");
@@ -98,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!category) return;
 
     try {
-      deck = await fetchDeck(category, CARDS_PER_ROUND);
+      deck = await fetchDeck(category, CARDS_PER_ROUND, difficulty);
     } catch (err) {
       alert("Kunde inte hämta frågor från servern.\n" + err);
       backToMenu();
@@ -140,11 +154,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Hämta kort från server
-  async function fetchDeck(cat, n) {
-    const res = await fetch(`/questions?cat=${cat}&n=${n}`);
+  async function fetchDeck(cat, n, diff) {
+    // Om Normal-läge: hämta både lätt (0) och svår (1) och blanda
+    if (diff === 2) {
+      const half = Math.floor(n / 2);
+      const extra = n % 2; // om ojämnt antal, ta ett till från lätt
+  
+      const [easyRes, hardRes] = await Promise.all([
+        fetch(`/questions?cat=${cat}&n=${half + extra}&difficulty=0`),
+        fetch(`/questions?cat=${cat}&n=${half}&difficulty=1`)
+      ]);
+  
+      if (!easyRes.ok || !hardRes.ok) throw "Serverfel vid normal-svårighet";
+  
+      const easy = await easyRes.json();
+      const hard = await hardRes.json();
+  
+      const combined = [...easy, ...hard];
+  
+      // Blanda korten
+      for (let i = combined.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [combined[i], combined[j]] = [combined[j], combined[i]];
+      }
+  
+      return combined;
+    }
+  
+    // Om Lätt eller Svår (0 eller 1)
+    const res = await fetch(`/questions?cat=${cat}&n=${n}&difficulty=${diff}`);
     if (!res.ok) throw `Servern svarade ${res.status}`;
     return res.json();
   }
+  
+  
 
   // Visa nästa kort från leken
   function drawNext() {
@@ -413,3 +456,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
