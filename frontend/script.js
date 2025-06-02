@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const API = "";
-  const THEMES = ["sport", "fritid", "historia", "samtid"];
+  const THEMES = ["sport", "fritid", "historia"];
   const CARDS_PER_ROUND = 10;
 
   const $ = (id) => document.getElementById(id);

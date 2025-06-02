@@ -40,11 +40,6 @@ body.theme-blandat {
   --accent-dark: #1b36a9;   /* mörkare */
   --accent-lite: #aabafc;   /* ljusare */
 }
-body.theme-samtid {
-  --accent: #D16BA5;
-  --accent-dark: #9e4e7e;   /* mörkare */
-  --accent-lite: #f0b8d8;   /* ljusare */
-}
 /*-------------------------------------------------------------------*/
 /* Specifika färger beroende på kategori på startsidan */
 .category-btn[data-category="sport"] {
@@ -66,11 +61,7 @@ body.theme-samtid {
   background-color: #783c7f; 
   width: 150px; 
   height: 200px; 
-}
-.category-btn[data-category="samtid"] {
-  background-color: #D16BA5;
-  width: 150px; 
-  height: 200px; 
+
 }
 .card .hint-overlay {
   position: absolute;
