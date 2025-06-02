@@ -311,3 +311,45 @@ header h1{font-weight:700;
 #score-board #lives{
   font-size:1.35rem;
 }
+
+.difficulty-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.difficulty-buttons h3 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.difficulty-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.difficulty-btn[data-difficulty="0"] {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.difficulty-btn[data-difficulty="1"] {
+  background-color: #ffcdcd;
+  color: #721c24;
+}
+
+.difficulty-btn[data-difficulty="2"] {
+  background-color: #f8f3d7;
+  color: #8e7204;
+}
+
+.difficulty-btn:hover {
+  opacity: 0.9;
+}
