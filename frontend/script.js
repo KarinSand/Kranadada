@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshDropzones();
     drawNextCard();
 
-    categoryScreen.classList.add("hidden");
+    categoryScreen.classList.add("hidden"); 
     gameScreen.classList.remove("hidden");
   }
 
@@ -184,27 +184,37 @@ document.addEventListener("DOMContentLoaded", () => {
     // Om Lätt eller Svår (0 eller 1)
     const res = await fetch(`/questions?cat=${cat}&n=${n}&difficulty=${diff}`);
     if (!res.ok) throw `Servern svarade ${res.status}`;
-    return res.json();
+    return res.json(); 
   }
   
   
 
-  // Visa nästa kort från leken
-  function drawNext() {
-    if (!deck.length) {
-      return showEnd();
-    }
-
-    const card = deck.pop();
-
-    Object.assign(els.current, {
-      textContent: card.title,
-      draggable: true,
-    });
-
-    els.current.dataset.year = card.year;
-    els.current.className = "card category-colored";
+ // Visa nästa kort från lekenMore actions
+ // Visa nästa kort från leken
+function drawNext() {
+  if (!deck.length) {
+    return showEnd(); // Inga fler kort kvar
   }
+
+  const card = deck.pop();
+
+  // Återställ kortets innehåll och rensa hint
+  els.current.innerHTML = `
+    <div class="card-title">${card.title}</div>
+    <div class="card-hint hidden"></div>
+  `;
+  els.current.draggable = true;
+  els.current.dataset.title = card.title;
+  els.current.dataset.year = card.year;
+  els.current.dataset.errors = "0";
+  els.current.className = "card category-colored";
+
+  // Här är nyckeln: rensa hint när nytt kort visas
+  const hintDiv = els.current.querySelector(".card-hint");
+  hintDiv.textContent = "";
+  hintDiv.classList.add("hidden");
+  hintDiv.classList.remove("used", "fade-out");
+}
 
   // Skapa dropzone i tidslinjen
   function addDrop(index) {
@@ -227,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     els.timeline.insertBefore(dropZone, cards[index] || null);
   }
 
-  /* Hantera släpp */
+  /***************************************** Hantera släpp ****************************************/
   function handleDrop(e) {
     e.preventDefault();
     this.classList.remove("highlight");
@@ -268,11 +278,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ok) {
       points++;
       els.score.textContent = points;
+       // Dölj hint efter den blivit lagt korrekt
+       const hintDiv = els.current.querySelector(".card-hint"); 
+    if (hintDiv) {
+      hintDiv.textContent = ""; 
+      hintDiv.classList.remove("used", "fade-out"); 
+      hintDiv.classList.add("hidden"); 
+    }
 
-      const newCard = document.createElement("div");
+       /* Skapa ett nytt kort att lägga in i tidslinjen.
+      Hint-text inkluderas ej, så den försvinner från spelplanen när kortet placeras korrekt. */
+      const newCard = document.createElement("div"); 
       newCard.className = "card correct";
-      newCard.textContent = `${draggedCard.title} (${yr})`;
-
+      newCard.innerHTML = `
+        <div class="card-title">${draggedCard.title}</div>
+        <div class="card-year">(${yr})</div>
+      `;
+    
       els.timeline.insertBefore(newCard, dropzone);
       placed.splice(idx, 0, { title: draggedCard.title, year: yr });
 
@@ -286,8 +308,18 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       points = Math.max(0, points - 1);
       els.score.textContent = points;
+    
+      // Hantera felräkning för ledtråd
+      const errors = parseInt(els.current.dataset.errors || "0") + 1;
+      els.current.dataset.errors = errors;
+    
+      if (errors === 2) {
+        getHint(els.current.dataset.title);
+      }
+    
       els.current.classList.add("incorrect");
       setTimeout(() => els.current.classList.remove("incorrect"), 900);
+  
       loseLife();                   // 3-livs-avdrag vid fel
     }
   }
@@ -422,12 +454,36 @@ document.addEventListener("DOMContentLoaded", () => {
     if (els.lifeBtn) els.lifeBtn.disabled = false;
     if (els.lifeBoard) els.lifeBoard.classList.add("hidden");
   }
-
+  document.querySelectorAll(".hint-btn").forEach(button => {
+    button.addEventListener("click", event => {
+      const card = event.target.closest(".card");
+      const title = card.dataset.title;
+      getHint(title);
+    });
+  });
+  
+  function getHint(title) {
+    const clean = title.replace(/\s*\(.*?\)\s*$/, "").trim(); 
+  
+    fetch(`/hint/${encodeURIComponent(clean)}`)
+      .then(response => response.json())
+      .then(data => { // hämta ledtråd från servern
+        const hintDiv = els.current.querySelector(".card-hint");  // hitta hint-diven i nuvarande kortet
+        if (hintDiv) { 
+          hintDiv.textContent = "" + data.hint; 
+          hintDiv.classList.remove("hidden"); 
+          hintDiv.classList.add("used");
+        }
+      })
+      .catch(error => { // hantera fel vid hämtning
+        console.error("Fel vid hämtning av ledtråd:", error);
+      });
+  }
+  
   // Dummy funktion för kategori baserat på titel, måste definieras
   function getCardCategory(title) {
-    return category || "normal";
+    return category || "blandat";
   }
-
   /* ===== 3-LIVS-HJÄLPPUNKTER ===== */
   function updateLivesUI() {
     els.livesEl.textContent = "❤️".repeat(lives);

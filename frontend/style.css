@@ -2,55 +2,158 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root {
 
-  --accent:      #0066d4;
-  --accent-dark: #00478d;
+  --accent:      #00898d;
+  --accent-dark: #017579;
   --accent-lite: #d9e8ff;
-  --bg:          #f5f7fe;
+  --bg:          #fffcf0;
   --card-edge:   #e0e3f1;
-  --good:        #2ca650;
+  --good:        #4CAF50;
   --bad:         #e63946;
   --good-bg:     #e9f7ee;
   --bad-bg:      #fdecef;
 }
-
 html,body{height:100%;
   font-family:"Nunito",system-ui,sans-serif;
   background:var(--bg);color:#222;
 }
-
 .hidden{display:none!important;}
-
 body { display: flex; flex-direction: column; }
-body.theme-sport    { --accent:#55c739; --accent-dark:#308e04; --accent-lite:#e0f6e3; }
-body.theme-fritid   { --accent:#e97f28; --accent-dark:#b9701d; --accent-lite:#eee5ff; }
-body.theme-historia { --accent:#FD40FD; --accent-dark:#8b1b80; --accent-lite:#fde4e2; }
-body.theme-normal   { --accent:#2196F3; --accent-dark:#0d47a1; --accent-lite:#dbeeff; }
+/*färgteman på kort*/
+body { display: flex; flex-direction: column; }
+body.theme-sport {
+  --accent: #2D52E7;
+  --accent-dark: #1b36a9;
+  --accent-lite: #aabafc;
+}
+body.theme-fritid {
+  --accent: #F6AD28;
+  --accent-dark: #c88700;
+  --accent-lite: #ffe2a8;
+}
+body.theme-historia {
+  --accent: #783c7f;
+  --accent-dark: #55285a;
+  --accent-lite: #c9a3ce;
+}
+
+body.theme-blandat {
+  --accent: #d16ba4;
+  --accent-dark: #a2517e;
+  --accent-lite: #f0bfdc;
+}
+
+/* Specifika färger beroende på kategori på startsidan */
+.category-btn[data-category="sport"] {
+  background-color: #2D52E7; 
+  width: 150px;
+  height: 200px;
+}
+.category-btn[data-category="fritid"] {
+  background-color: #F6AD28; 
+  width: 150px; 
+  height: 200px; 
+}
+.category-btn[data-category="blandat"] {
+  background-color: #d16ba4; 
+  width: 150px; 
+  height: 200px;
+}
+.category-btn[data-category="historia"] {
+  background-color: #783c7f; 
+  width: 150px; 
+  height: 200px; 
+}
+
+.card-hint {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ffeeba;
+  color: black;
+  font-style: italic;
+  font-size: 0.7rem;
+  max-width: 90%;
+  text-align: center;
+  z-index: 10;
+}
+.card-hint.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-hint.used {
+  color: gray;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+.card .hint-overlay {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-dark);
+  color: white;
+  padding: 4px 8px;
+  font-style: italic;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+  animation: fadein 0.3s ease-in-out;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.card .hint-overlay {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-dark);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+  animation: fadein 0.3s ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
 
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
-  color:#fff;text-align:center;
+  color:#CD0000;text-align:center;
   padding:1.6rem 1rem 1.3rem;
   box-shadow:0 3px 12px rgba(0,0,0,.25);
 }
-header h1{font-weight:700;
-  letter-spacing:1px;
+header h1 {
+  font-family: 'Staatliches', sans-serif;
+  letter-spacing: 25px;
+  font-size: 7.5rem; 
+  -webkit-text-stroke: 0.001px black;
 }
-
 #category-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3rem; /* Flytta rubriken längre upp */
+  padding-top: 3rem; 
+  padding-top: 3rem; 
   text-align: center;
 }
-
 #category-screen h2 {
-  font-size: 2.2rem; /* Gör rubriken större */
+  font-size: 2.2rem; 
+  font-size: 2.2rem; 
   margin-bottom: 2rem;
 }
-
-
-
 
 .category-label{
   display:inline-block;
@@ -72,8 +175,6 @@ header h1{font-weight:700;
   border-radius:50%;
   margin-left:.8rem;
 }
-
-
 .btn{
   font-size:1.05rem;
   padding:.68rem 2rem;
@@ -96,12 +197,14 @@ header h1{font-weight:700;
 .category-buttons{display:flex;
   gap:1rem;
   margin-top:1.6rem;
+
 }
 .category-btn{background:var(--accent);
   color:#fff;
   flex:1;
-  width: 250px;
-  max-width: 300px;
+  width: 150px;
+  height: 200px;
+
 }
 .top-buttons {
   display: flex;
@@ -110,8 +213,6 @@ header h1{font-weight:700;
   flex-wrap: wrap; /* så att de inte går utanför skärmen på små enheter */
   justify-content: center; /* centrera knapparna horisontellt */
 }
-
-
 #score-board{
   width: 90%;
   margin: 2rem auto 0 auto;
@@ -124,23 +225,19 @@ header h1{font-weight:700;
   display:flex;gap:.45rem;
   align-items:center;
 }
-#life-board{
-  font-weight:700;
-  margin-bottom:0.5rem;
-}
 #score-board span{font-weight:800;
   font-size:1.3rem;
 }
-
 #timeline{
+
   position:relative;
   width:100%;
+  margin: auto;
   max-width:1000px;
   margin:1.4rem auto 1rem;
   display:flex;gap:1.2rem;
   overflow-x:auto;
-  padding:2.2rem 0;
-  background:rgba(0,102,212,.05);
+  padding:1.2rem 0;
   border-radius:8px;
 }
 #timeline::after{
@@ -149,7 +246,7 @@ header h1{font-weight:700;
   left:0;
   right:0;
   height:4px;
-  background:#cdd4ec;
+  background:#06070b;
   pointer-events:none;
   z-index:0;
 }
@@ -158,7 +255,7 @@ header h1{font-weight:700;
   top:-1.7rem;
   font-size:.85rem;
   font-weight:700;
-  color:#555;
+  color:#796c6c;
 }
 .tl-label.left {left:0;
   transform:translateX(-4px);
@@ -168,6 +265,7 @@ header h1{font-weight:700;
 }
 
 .card {
+  position: relative;
   width: 150px;  /* smalare */
   height: 200px; /* högre */
   padding: 1rem .85rem;
@@ -184,20 +282,18 @@ header h1{font-weight:700;
 .card:active { cursor:grabbing; transform:scale(.96); }
 .card.correct   { border-color:var(--good); background:var(--good-bg); }
 .card.incorrect { border-color:var(--bad);  background:var(--bad-bg); }
-
 .card,
 .dropzone {
   flex-shrink: 0; /* Hindra flex från att trycka ihop zonerna och korten */
 }
-
 .dropzone{
   position:relative;
   flex:0 0 auto;
   width:80px;
-  height:160px;
+  height:200px;
   cursor:pointer;
   z-index:3;
-  background:rgba(0,102,212,.05);
+
   border-radius:6px;transition:background .25s;
 }
 .dropzone::before{
@@ -205,9 +301,9 @@ header h1{font-weight:700;
   left:50%;
   top:0;
   transform:translateX(-50%);
-  width:8px;
+  width:100%;
   height:100%;
-  background:var(--accent-lite);
+  background-color: color-mix(in srgb, var(--accent-lite) 65%, transparent);
   border-radius:3px;
   pointer-events:none;
   transition:background .25s,box-shadow .25s;
@@ -232,29 +328,23 @@ header h1{font-weight:700;
   text-shadow:0 0 10px var(--accent);
   z-index:4;
 }
-
 .card.gamble-pending {
   border: 4px solid black;
 }
-
 #deck {
   display: flex;
   justify-content: center; /* centrerar kortet horisontellt */
   margin-top: 2rem; /* lite avstånd uppåt */
 }
-
-
 @keyframes flash{0%,100%{background:var(--accent-lite);
 }50%{background:var(--accent);}
 }
 .dropzone.flash-start::before{animation:flash 2s ease-in-out 3,pulse 1.2s infinite;
 }
-
 @keyframes pulse{
   0%,100%{box-shadow:0 0 10px 3px var(--accent);}
   50%   {box-shadow:0 0 22px 8px var(--accent);}
 }
-
 .modal{
   position:fixed;
   inset:0;
@@ -273,33 +363,40 @@ header h1{font-weight:700;
 }
 .modal-box h3{margin-bottom:.8rem;
 }
-
-@media(max-width:600px){
-  .card{min-width:160px;}
+footer {
+  text-align: center;
+  padding: 1rem; 
+  margin-top:250px; 
+  font-size: 0.85rem;
+  color: #666;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
 }
-
+@media(max-width:600px){
+  .card{min-width:150px;}
+}
 .card.category-colored {
   background: var(--accent-lite);
   border-color: var(--accent);
   color: var(--accent-dark);
 }
-
 .difficulty-selector {
   font-family: Arial, sans-serif;
   margin: 1rem 0;
 }
-
 .difficulty-selector label {
   font-size: 1.1rem;
   margin-right: 0.5rem;
 }
-
 #difficulty-select {
   font-size: 1.1rem;
   padding: 0.3rem 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+
+}
+
 }
 /* === 3-livsläge – TILLAGT === */
 #score-board #life-board{
