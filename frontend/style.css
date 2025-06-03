@@ -2,8 +2,8 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root {
 
-  --accent:      #004996;
-  --accent-dark: #00478d;
+  --accent:      #00898d;
+  --accent-dark: #017579;
   --accent-lite: #d9e8ff;
   --bg:          #fffcf0;
   --card-edge:   #e0e3f1;
@@ -21,9 +21,9 @@ body { display: flex; flex-direction: column; }
 /*------------------------färgteman på kort-------------------------------*/
 body { display: flex; flex-direction: column; }
 body.theme-sport {
-  --accent: #3c8073;
-  --accent-dark: #2d5c52;   /* mörkare  */
-  --accent-lite: #a4d2c8;   /* ljusare  */
+  --accent: #2D52E7;
+  --accent-dark: #1b36a9;   /* mörkare */
+  --accent-lite: #aabafc;   /* ljusare */
 }
 body.theme-fritid {
   --accent: #F6AD28;
@@ -35,15 +35,16 @@ body.theme-historia {
   --accent-dark: #55285a;   /* mörkare */
   --accent-lite: #c9a3ce;   /* ljusare */
 }
+
 body.theme-blandat {
-  --accent: #2D52E7;
-  --accent-dark: #1b36a9;   /* mörkare */
-  --accent-lite: #aabafc;   /* ljusare */
+  --accent: #d16ba4;
+  --accent-dark: #a2517e;   /* mörkare */
+  --accent-lite: #f0bfdc;   /* ljusare */
 }
 /*-------------------------------------------------------------------*/
 /* Specifika färger beroende på kategori på startsidan */
 .category-btn[data-category="sport"] {
-  background-color: #3c8073; 
+  background-color: #2D52E7; 
   width: 150px;
   height: 200px;
 }
@@ -52,8 +53,8 @@ body.theme-blandat {
   width: 150px; 
   height: 200px; 
 }
-.category-btn[data-category="Blandat"] {
-  background-color: #2D52E7; 
+.category-btn[data-category="blandat"] {
+  background-color: #d16ba4; 
   width: 150px; 
   height: 200px;
 }
@@ -63,6 +64,32 @@ body.theme-blandat {
   height: 200px; 
 
 }
+/*------------------------hint------------------------------*/
+.card-hint {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ffeeba;
+  color: black;
+  font-style: italic;
+  font-size: 0.7rem;
+  max-width: 90%;
+  text-align: center;
+  z-index: 10;
+}
+.card-hint.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-hint.used {
+  color: gray;
+  font-style: italic;
+  font-size: 0.7rem;
+}
 .card .hint-overlay {
   position: absolute;
   bottom: 6px;
@@ -71,7 +98,8 @@ body.theme-blandat {
   background: var(--accent-dark);
   color: white;
   padding: 4px 8px;
-  font-size: 0.8rem;
+  font-style: italic;
+  font-size: 0.7rem;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   z-index: 10;
@@ -80,58 +108,6 @@ body.theme-blandat {
 @keyframes fadein {
   from { opacity: 0; transform: translateX(-50%) translateY(5px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-/*-------------------------------------------------------------------*/
-/*------------------------färgteman på kort-------------------------------*/
-body { display: flex; flex-direction: column; }
-body.theme-sport {
-  --accent: #3c8073;
-  --accent-dark: #2d5c52;   /* mörkare grön */
-  --accent-lite: #a4d2c8;   /* ljusare grön */
-}
-
-body.theme-fritid {
-  --accent: #F6AD28;
-  --accent-dark: #c88700;   /* mörkare orange/gul */
-  --accent-lite: #ffe2a8;   /* ljusare variant */
-}
-
-body.theme-historia {
-  --accent: #783c7f;
-  --accent-dark: #55285a;   /* mörkare lila */
-  --accent-lite: #c9a3ce;   /* ljusare lila */
-}
-
-body.theme-normal {
-  --accent: #2D52E7;
-  --accent-dark: #1b36a9;   /* mörkare blå */
-  --accent-lite: #aabafc;   /* ljusare blå */
-}
-/*-------------------------------------------------------------------*/
-/* Specifika färger beroende på kategori på startsidan */
-.category-btn[data-category="sport"] {
-
-  background-color: #3c8073; 
-  width: 150px;
-  height: 200px;
-}
-
-.category-btn[data-category="fritid"] {
-  background-color: #F6AD28; /* Yellow */
-  width: 150px; 
-  height: 200px; 
-}
-
-.category-btn[data-category="historia"] {
-  background-color: #783c7f; /* purple */
-  width: 150px; 
-  height: 200px; 
-}
-
-.category-btn[data-category="normal"] {
-  background-color: #2D52E7; /* blue */
-  width: 150px; 
-  height: 200px;
 }
 
 .card .hint-overlay {
@@ -158,7 +134,7 @@ body.theme-normal {
 
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
-  color:#ef9e86;text-align:center;
+  color:#ffffff;text-align:center;
   padding:1.6rem 1rem 1.3rem;
   box-shadow:0 3px 12px rgba(0,0,0,.25);
 }
@@ -224,12 +200,14 @@ header h1 {
 .category-buttons{display:flex;
   gap:1rem;
   margin-top:1.6rem;
+
 }
 .category-btn{background:var(--accent);
   color:#fff;
   flex:1;
-  width: 250px;
-  max-width: 300px;
+  width: 150px;
+  height: 200px;
+
 }
 .top-buttons {
   display: flex;
@@ -256,6 +234,7 @@ header h1 {
 #timeline{
   /*tog bort position:relative;*/
   /*tog bort position:relative;*/
+  position:relative;
   width:100%;
   margin: auto;
   max-width:1000px;
@@ -293,6 +272,7 @@ header h1 {
 }
 
 .card {
+  position: relative;
   width: 150px;  /* smalare */
   height: 200px; /* högre */
   padding: 1rem .85rem;
@@ -313,28 +293,6 @@ header h1 {
 .dropzone {
   flex-shrink: 0; /* Hindra flex från att trycka ihop zonerna och korten */
 }
-.card-hint {
-  margin-top: 10px;
-  color: gray;
-  font-style: italic;
-  font-size: 0.5rem;
-  color: black;
-  background: #ffffff;
-  padding: 6px;
-  border-radius: 4px;
-  border: 1px solid #ffeeba;
-
-}
-.card-hint.used {
-  color: gray;
-  font-style: italic;
-  font-size: 0.5rem;
-}
-
-.hidden {
-  display: none;
-}
-
 .dropzone{
   position:relative;
   flex:0 0 auto;
