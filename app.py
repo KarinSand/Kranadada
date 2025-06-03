@@ -64,8 +64,8 @@ def get_hint(title):
         return jsonify({"hint": "Ingen ledtråd hittades."}), 404
 
     year  = row[0]
-    lower = year - 25
-    upper = year + 25
+    lower = year - 60
+    upper = year + 50
     hint  = f"Händelsen inträffade mellan {lower} och {upper}."
     return jsonify({"hint": hint})
 if __name__ == "__main__":
