@@ -18,30 +18,30 @@ html,body{height:100%;
 }
 .hidden{display:none!important;}
 body { display: flex; flex-direction: column; }
-/*------------------------färgteman på kort-------------------------------*/
+/*färgteman på kort*/
 body { display: flex; flex-direction: column; }
 body.theme-sport {
   --accent: #2D52E7;
-  --accent-dark: #1b36a9;   /* mörkare */
-  --accent-lite: #aabafc;   /* ljusare */
+  --accent-dark: #1b36a9;
+  --accent-lite: #aabafc;
 }
 body.theme-fritid {
   --accent: #F6AD28;
-  --accent-dark: #c88700;   /* mörkare */
-  --accent-lite: #ffe2a8;   /* ljusare  */
+  --accent-dark: #c88700;
+  --accent-lite: #ffe2a8;
 }
 body.theme-historia {
   --accent: #783c7f;
-  --accent-dark: #55285a;   /* mörkare */
-  --accent-lite: #c9a3ce;   /* ljusare */
+  --accent-dark: #55285a;
+  --accent-lite: #c9a3ce;
 }
 
 body.theme-blandat {
   --accent: #d16ba4;
-  --accent-dark: #a2517e;   /* mörkare */
-  --accent-lite: #f0bfdc;   /* ljusare */
+  --accent-dark: #a2517e;
+  --accent-lite: #f0bfdc;
 }
-/*-------------------------------------------------------------------*/
+
 /* Specifika färger beroende på kategori på startsidan */
 .category-btn[data-category="sport"] {
   background-color: #2D52E7; 
@@ -62,9 +62,8 @@ body.theme-blandat {
   background-color: #783c7f; 
   width: 150px; 
   height: 200px; 
-
 }
-/*------------------------hint------------------------------*/
+
 .card-hint {
   position: absolute;
   bottom: 6px;
@@ -130,11 +129,9 @@ body.theme-blandat {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/*-------------------------------------------------------------------*/
-
 header{
   background:linear-gradient(135deg,var(--accent-dark) 0%,var(--accent) 100%);
-  color:#ffffff;text-align:center;
+  color:#CD0000;text-align:center;
   padding:1.6rem 1rem 1.3rem;
   box-shadow:0 3px 12px rgba(0,0,0,.25);
 }
@@ -232,8 +229,7 @@ header h1 {
   font-size:1.3rem;
 }
 #timeline{
-  /*tog bort position:relative;*/
-  /*tog bort position:relative;*/
+
   position:relative;
   width:100%;
   margin: auto;
@@ -242,9 +238,6 @@ header h1 {
   display:flex;gap:1.2rem;
   overflow-x:auto;
   padding:1.2rem 0;
-    /*tog bort backgrund vid tidslinje*/
-  padding:2.2rem 0;
-    /*tog bort backgrund vid tidslinje*/
   border-radius:8px;
 }
 #timeline::after{
@@ -297,8 +290,7 @@ header h1 {
   position:relative;
   flex:0 0 auto;
   width:80px;
-  height:150px; /*-----------------------------fix------------------------- */
-  height:150px; /*-----------------------------fix------------------------- */
+  height:200px;
   cursor:pointer;
   z-index:3;
 
@@ -311,7 +303,7 @@ header h1 {
   transform:translateX(-50%);
   width:100%;
   height:100%;
-  background:var(--accent-lite);
+  background-color: color-mix(in srgb, var(--accent-lite) 65%, transparent);
   border-radius:3px;
   pointer-events:none;
   transition:background .25s,box-shadow .25s;
