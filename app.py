@@ -9,15 +9,41 @@ DB.parent.mkdir(exist_ok=True)
 app = Flask(__name__, static_folder="frontend")  
 CORS(app, resources={r"/*": {"origins": "*"}})  
 
+
 def fetch_cards(category):
     """Hämtar alla kort i angiven kategori (eller alla om 'blandat')."""
     with sqlite3.connect(DB) as conn:
         cur = conn.cursor()
         if category == "blandat":
             cur.execute("SELECT NAME, YEAR FROM CARD")
+
+def fetch_cards(category, difficulty=None):
+    """Hämtar kort i angiven kategori och svårighetsgrad."""
+    with sqlite3.connect(DB) as conn:
+        cur = conn.cursor()
+        if category == "normal":
+            if difficulty in (0, 1):
+                cur.execute("SELECT NAME, YEAR FROM CARD WHERE DIFFICULTY = ?", (difficulty,))
+            elif difficulty == 2 or difficulty is None:
+                cur.execute("SELECT NAME, YEAR FROM CARD WHERE DIFFICULTY IN (0, 1)")
+            else:
+                cur.execute("SELECT NAME, YEAR FROM CARD")
+
         else:
-            cur.execute("SELECT NAME, YEAR FROM CARD WHERE CATEGORY = ?", (category,))
+            if difficulty in (0, 1):
+                cur.execute(
+                    "SELECT NAME, YEAR FROM CARD WHERE CATEGORY = ? AND DIFFICULTY = ?",
+                    (category, difficulty)
+                )
+            elif difficulty == 2 or difficulty is None:
+                cur.execute(
+                    "SELECT NAME, YEAR FROM CARD WHERE CATEGORY = ? AND DIFFICULTY IN (0, 1)",
+                    (category,)
+                )
+            else:
+                cur.execute("SELECT NAME, YEAR FROM CARD WHERE CATEGORY = ?", (category,))
         return [{"title": n, "year": y} for n, y in cur.fetchall()]
+
 
 @app.route("/categories")
 def categories():
@@ -26,10 +52,17 @@ def categories():
 @app.route("/questions")
 def questions():
     cat = request.args.get("cat", "sport").lower()
-    n   = int(request.args.get("n", 5))
-    pool = fetch_cards(cat)
+    n = int(request.args.get("n", 5))
+    try:
+        difficulty = int(request.args.get("difficulty", 2))
+    except ValueError:
+        difficulty = 2
+
+    pool = fetch_cards(cat, difficulty)
+
     if not pool:
-        return jsonify({"error": "Kategori saknas"}), 404
+        return jsonify({"error": "Inga kort hittades"}), 404
+
     return jsonify(random.sample(pool, min(n, len(pool))))
 
 @app.route("/")
