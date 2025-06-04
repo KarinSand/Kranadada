@@ -21,7 +21,8 @@ def fetch_cards(category, difficulty=None):
     """Hämtar kort i angiven kategori och svårighetsgrad."""
     with sqlite3.connect(DB) as conn:
         cur = conn.cursor()
-        if category == "normal":
+        print(f"Category: {category}, Difficulty: {difficulty}")  # Debugging output
+        if category == "blandat":
             if difficulty in (0, 1):
                 cur.execute("SELECT NAME, YEAR FROM CARD WHERE DIFFICULTY = ?", (difficulty,))
             elif difficulty == 2 or difficulty is None:

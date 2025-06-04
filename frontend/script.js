@@ -148,6 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     refreshDropzones();
     drawNextCard();
+    const difficultyText = ["Lätt", "Svår", "Normal"][difficulty];
+    document.getElementById("difficulty-indicator").textContent = `Svårighetsgrad: ${difficultyText}`;
 
     categoryScreen.classList.add("hidden"); 
     gameScreen.classList.remove("hidden");
@@ -189,8 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   
 
- // Visa nästa kort från lekenMore actions
- // Visa nästa kort från leken
+ // Visa nästa kort från kortleken
 function drawNext() {
   if (!deck.length) {
     return showEnd(); // Inga fler kort kvar
@@ -468,7 +469,7 @@ function drawNext() {
     fetch(`/hint/${encodeURIComponent(clean)}`)
       .then(response => response.json())
       .then(data => { // hämta ledtråd från servern
-        const hintDiv = els.current.querySelector(".card-hint");  // hitta hint-diven i nuvarande kortet
+        const hintDiv = els.current.querySelector(".card-hint");  // hitta hint-div i nuvarande kortet
         if (hintDiv) { 
           hintDiv.textContent = "" + data.hint; 
           hintDiv.classList.remove("hidden"); 
