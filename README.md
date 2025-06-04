@@ -26,13 +26,13 @@ cd Kranadada
 
 Gå till mappen där dina projektfiler ligger.
 Kör detta kommando för att skapa databasen med historiska händelser:
-python init_db.py
+python3 database/init_db.py
 Kör följande kommando i terminalen från projektmappen:
-python app.py
+python3 app.py
 
 **När servern startas:** 
 Öppna webbläsaren och gå till den adress som visas, det bör vara:
-http://127.0.0.1:5000/
+http://127.0.0.1:8000/
 
 Spelet ska nu laddas i webbläsaren.
 
