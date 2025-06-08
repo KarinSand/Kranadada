@@ -65,4 +65,3 @@ Gamble-läge: Klicka på Aktivera gamble-läge för att börja samla flera kort 
 Andra knappar: Välj annan kategori tar dig tillbaka till startsidan för att välja kategori på nytt. Omstart börjar om spelet med samma inställningar.
 
 Spelavslut: Spelet avslutas automatiskt efter 10 kort (en hel omgång) eller när liven tar slut. Ett resultatfönster visas med totalpoängen.
-Mappstruktur
